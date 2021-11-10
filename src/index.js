@@ -23,6 +23,7 @@ app.get('/', (req, res) => {res.render('index')})
 app.get('/about-us', (req, res) => {res.render('about-us')})
 app.get('/login', (req, res) => {res.render('login')})
 app.get('/signup', (req, res) => {res.render('signup')})
+app.get('/password-recovery', (req, res) => {res.render('password-recovery')})
 app.get('/my-account', (req, res) => {res.render('my-account')})
 app.get('/admin-account', (req, res) => {res.render('admin-account')})
 app.get('/shop-grid-sidebar-left', (req, res) => {res.render('shop-grid-sidebar-left')})
@@ -30,6 +31,7 @@ app.get('/product-details-default', (req, res) => {res.render('product-details-d
 app.get('/404', (req, res) => {res.render('404')})
 app.get('/cart', (req, res) => {res.render('cart')})
 app.get('/checkout', (req, res) => {res.render('checkout')})
+app.get('*', (req, res) => {res.render('404')})
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
