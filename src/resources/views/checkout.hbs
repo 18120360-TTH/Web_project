@@ -4,13 +4,14 @@
         <div class="breadcrumb-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
+                    <div
+                        class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
                         <h3 class="breadcrumb-title">Checkout</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
-                                    <li><a href="index">Home</a></li>
-                                    <li><a href="shop-grid-sidebar-left">Shop</a></li>
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="/my-account">Cart</a></li>
                                     <li class="active" aria-current="page">Checkout</li>
                                 </ul>
                             </nav>
@@ -31,11 +32,13 @@
                         <h3>
                             <i class="fa fa-file-o" aria-hidden="true"></i>
                             Returning customer?
-                            <a class="Returning" href="#" data-toggle="collapse" data-target="#checkout_login" aria-expanded="true">Click here to login</a>
+                            <a class="Returning" href="#" data-toggle="collapse" data-target="#checkout_login"
+                                aria-expanded="true">Click here to login</a>
                         </h3>
                         <div id="checkout_login" class="collapse" data-parent="#checkout_login">
                             <div class="checkout_info">
-                                <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer please proceed to the Billing &amp; Shipping section.</p>
+                                <p>If you have shopped with us before, please enter your details in the boxes below. If
+                                    you are a new customer please proceed to the Billing &amp; Shipping section.</p>
                                 <form action="#">
                                     <div class="form_group default-form-box">
                                         <label>Username or email <span>*</span></label>
@@ -61,7 +64,8 @@
                         <h3>
                             <i class="fa fa-file-o" aria-hidden="true"></i>
                             Returning customer?
-                            <a class="Returning" href="#" data-toggle="collapse" data-target="#checkout_coupon" aria-expanded="true">Click here to enter your code</a>
+                            <a class="Returning" href="#" data-toggle="collapse" data-target="#checkout_coupon"
+                                aria-expanded="true">Click here to enter your code</a>
 
                         </h3>
                         <div id="checkout_coupon" class="collapse" data-parent="#checkout_coupon">
@@ -81,31 +85,13 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <form action="#">
-                            <h3>Billing Details</h3>
+                            <h3>Delivery address</h3>
                             <div class="row">
-                                <div class="col-lg-6 mb-20">
-                                    <div class="default-form-box">
-                                        <label>First Name <span>*</span></label>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-20">
-                                    <div class="default-form-box">
-                                        <label>Last Name <span>*</span></label>
-                                        <input type="text">
-                                    </div>
-                                </div>
                                 <div class="col-12 mb-20">
                                     <div class="default-form-box">
-                                        <label>Company Name</label>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-20">
-                                    <div class="default-form-box">
-                                        <label for="country">country <span>*</span></label>
+                                        <label for="country">Country <span>*</span></label>
                                         <select class="country_option nice-select wide" name="country" id="country">
-                                            <option value="2">Bangladesh</option>
+                                            <option value="2">Vietnam</option>
                                             <option value="3">Algeria</option>
                                             <option value="4">Afghanistan</option>
                                             <option value="5">Ghana</option>
@@ -118,30 +104,25 @@
                                 </div>
                                 <div class="col-12 mb-20">
                                     <div class="default-form-box">
-                                        <label>Street address <span>*</span></label>
-                                        <input placeholder="House number and street name" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-20">
-                                    <div class="default-form-box">
-                                        <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-20">
-                                    <div class="default-form-box">
                                         <label>Town / City <span>*</span></label>
-                                        <input type="text">
+                                        <input type="text" value="Ex: Cantho, Dongthap, Angiang, ...">
+                                    </div>
+                                </div>                                
+                                <div class="col-12 mb-20">
+                                    <div class="default-form-box">
+                                        <label>Street address <span>*</span></label>
+                                        <input placeholder="House number / street name / ..." type="text">
                                     </div>
                                 </div>
                                 <div class="col-12 mb-20">
                                     <div class="default-form-box">
-                                        <label>State / County <span>*</span></label>
-                                        <input type="text">
+                                        <input placeholder="Ward / District / ..." type="text">
                                     </div>
                                 </div>
+
                                 <div class="col-lg-6 mb-20">
                                     <div class="default-form-box">
-                                        <label>Phone<span>*</span></label>
+                                        <label>Phone number<span>*</span></label>
                                         <input type="text">
                                     </div>
                                 </div>
@@ -199,31 +180,18 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <div class="payment_method">
-                                <div class="panel-default">
-                                    <label class="checkbox-default" for="currencyCod" data-toggle="collapse" data-target="#methodCod">
-                                        <input type="checkbox" id="currencyCod">
-                                        <span>Cash on Delivery</span>
-                                    </label>
-
-                                    <div id="methodCod" class="collapse" data-parent="#methodCod">
-                                        <div class="card-body1">
-                                            <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                        </div>
+                            <div class="payment_method">                            
+                                <div class="default-form-box mb-20">
+                                    <div class="input-radio p-2  d-flex justify-content-around">
+                                        <span class="custom-radio"><input type="radio" value="1" name="id_payment"
+                                                checked="checked">Cash on delivery - COD</span>
+                                        <span class="custom-radio"><input type="radio" value="1"
+                                                name="id_payment">Banking</span>
+                                        <span class="custom-radio"><input type="radio" value="1"
+                                                name="id_payment">Visa</span>
                                     </div>
                                 </div>
-                                <div class="panel-default">
-                                    <label class="checkbox-default" for="currencyPaypal" data-toggle="collapse" data-target="#methodPaypal">
-                                        <input type="checkbox" id="currencyPaypal">
-                                        <span>PayPal</span>
-                                    </label>
-                                    <div id="methodPaypal" class="collapse " data-parent="#methodPaypal">
-                                        <div class="card-body1">
-                                            <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="order_button pt-15">
+                                <div class="order_button pt-15 d-flex justify-content-center">
                                     <button type="submit">Proceed</button>
                                 </div>
                             </div>

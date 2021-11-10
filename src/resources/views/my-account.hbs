@@ -4,13 +4,13 @@
         <div class="breadcrumb-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
+                    <div
+                        class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
                         <h3 class="breadcrumb-title">My Account</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
-                                    <li><a href="index">Home</a></li>
-                                    <li><a href="shop-grid-sidebar-left">Shop</a></li>
+                                    <li><a href="/">Home</a></li>
                                     <li class="active" aria-current="page">My Account</li>
                                 </ul>
                             </nav>
@@ -29,9 +29,10 @@
                     <!-- Nav tabs -->
                     <div class="dashboard_tab_button">
                         <ul role="tablist" class="nav flex-column dashboard-list">
-                            <li><a href="#account-details" data-toggle="tab" class="nav-link active">Account details</a></li>
+                            <li><a href="#account-details" data-toggle="tab" class="nav-link active">Account details</a>
+                            </li>
                             <li> <a href="#orders" data-toggle="tab" class="nav-link">Orders</a></li>
-                            <li><a href="#address" data-toggle="tab" class="nav-link">Addresses</a></li>
+                            <li><a href="#edit-profile" data-toggle="tab" class="nav-link">Edit profiles</a></li>
                             <li><a href="login" class="nav-link">logout</a></li>
                         </ul>
                     </div>
@@ -39,51 +40,79 @@
                 <div class="col-sm-12 col-md-9 col-lg-9">
                     <!-- Tab panes -->
                     <div class="tab-content dashboard_content">
-                        <div class="tab-pane fade show active" id="account-details">
-                            <h3>Account details </h3>
+                        <div class="tab-pane fade" id="edit-profile">
+                            <h3>Profile editor</h3>
                             <div class="login">
                                 <div class="login_form_container">
                                     <div class="account_login_form">
                                         <form action="#">
-                                            <p>Already have an account? <a href="#">Log in instead!</a></p>
-                                            <div class="input-radio">
-                                                <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Mr.</span>
-                                                <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Mrs.</span>
-                                            </div> <br>
-                                            <div class="default-form-box mb-20">
-                                                <label>First Name</label>
-                                                <input type="text" name="first-name">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="default-form-box col-lg-6 mb-20">
+                                                    <label>First Name <span>*</span></label>
+                                                    <input type="text">
+                                                </div>
+                                                <div class="default-form-box col-lg-5 mb-20">
+                                                    <label>Last Name <span>*</span></label>
+                                                    <input type="text">
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="default-form-box mb-20">
+                                                    <label>Gender</label>
+                                                    <div class="input-radio p-2">
+                                                        <span class="custom-radio"><input type="radio" value="1"
+                                                                name="id_gender">Male</span>
+                                                        <span class="custom-radio"><input type="radio" value="1"
+                                                                name="id_gender">Female</span>
+                                                        <span class="custom-radio"><input type="radio" value="1"
+                                                                name="id_gender">Other</span>
+                                                    </div>
+                                                </div>
+                                                <div class="default-form-box mb-20 col-7">
+                                                    <div class="d-flex">
+                                                        <label>Birthdate</label>
+                                                        <span class="example ml-2">(E.g.: 05/31/1970)</span>
+                                                    </div>
+                                                    <input type="date" name="birthday">
+                                                </div>
                                             </div>
                                             <div class="default-form-box mb-20">
-                                                <label>Last Name</label>
-                                                <input type="text" name="last-name">
+                                                <label>Email address <span>*</span></label>
+                                                <input type="text">
                                             </div>
-                                            <div class="default-form-box mb-20">
-                                                <label>Email</label>
-                                                <input type="text" name="email-name">
+                                            <div class="default-form-box col-12 mb-20">
+                                                <label for="country">Country <span>*</span></label>
+                                                <select class="country_option nice-select wide" name="country"
+                                                    id="country">
+                                                    <option value="2">Bangladesh</option>
+                                                    <option value="3">Algeria</option>
+                                                    <option value="4">Afghanistan</option>
+                                                    <option value="5">Ghana</option>
+                                                    <option value="6">Albania</option>
+                                                    <option value="7">Bahrain</option>
+                                                    <option value="8">Colombia</option>
+                                                    <option value="9">Dominican Republic</option>
+                                                </select>
                                             </div>
-                                            <div class="default-form-box mb-20">
-                                                <label>Password</label>
-                                                <input type="password" name="user-password">
+                                            <div class="default-form-box col-12 mt-70 mb-20">
+                                                <label>Street address <span>*</span></label>
+                                                <div class="d-flex justify-content-between">
+                                                    <input class="mr-10" placeholder="House number and street name"
+                                                        type="text">
+                                                    <input placeholder="Apartment, suite, unit etc. (optional)"
+                                                        type="text">
+                                                </div>
                                             </div>
-                                            <div class="default-form-box mb-20">
-                                                <label>Birthdate</label>
-                                                <input type="date" name="birthday">
+                                            <div class="default-form-box col-12 mb-20">
+                                                <label>Town / City <span>*</span></label>
+                                                <input type="text">
                                             </div>
-                                            <span class="example">
-                                                  (E.g.: 05/31/1970)
-                                                </span>
-                                            <br>
-                                            <label class="checkbox-default" for="offer">
-                                                <input type="checkbox" id="offer">
-                                                <span>Receive offers from our partners</span>
-                                            </label>
-                                            <br>
-                                            <label class="checkbox-default checkbox-default-more-text" for="newsletter">
-                                                <input type="checkbox" id="newsletter">
-                                                <span>Sign up for our newsletter<br><em>You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.</em></span>
-                                            </label>
-                                            <div class="save_button primary_btn default_button">
+                                            <div class="default-form-box col-lg-12 mb-20">
+                                                <label>Phone<span>*</span></label>
+                                                <input type="text">
+                                            </div>
+                                            <div
+                                                class="save_button primary_btn default_button d-flex justify-content-center">
                                                 <button type="submit">Save</button>
                                             </div>
                                         </form>
@@ -91,7 +120,7 @@
                                 </div>
                             </div>
                         </div>
-                                                
+
                         <div class="tab-pane fade" id="orders">
                             <h4>Orders</h4>
                             <div class="table_page table-responsive">
@@ -111,36 +140,53 @@
                                             <td>May 10, 2018</td>
                                             <td><span class="success">Completed</span></td>
                                             <td>$25.00 for 1 item </td>
-                                            <td><a href="#" data-toggle="modal" data-target="#modalViewOrder" class="view">view</a></td>
+                                            <td><a href="#" data-toggle="modal" data-target="#modalViewOrder"
+                                                    class="view">view</a></td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
                                             <td>May 10, 2018</td>
                                             <td>Processing</td>
                                             <td>$17.00 for 1 item </td>
-                                            <td><a href="#" data-toggle="modal" data-target="#modalViewOrder" class="view">view</a></td>
+                                            <td><a href="#" data-toggle="modal" data-target="#modalViewOrder"
+                                                    class="view">view</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    
-                        <div class="tab-pane" id="address">
-                            <p>The following addresses will be used on the checkout page by default.</p>
-                            <h5 class="billing-address">Billing address</h5>
-                            <a href="#" class="view">Edit</a>
-                            <p><strong>Bobby Jackson</strong></p>
-                            <address>
-                                House #15<br>
-                                    Road #1<br>
-                                    Block #C <br>
-                                    Banasree <br>
-                                    Dhaka <br>
-                                    1212
-                            </address>
-                            <p>Bangladesh</p>
-                        </div>
 
+                        <div class="tab-pane show active" id="account-details">
+                            <div class="d-flex flex-wrap justify-content-between">
+                                <div class="default-form-box mb-20 col-md-3">
+                                    <label>Full name</label>
+                                    Leonard Da Vinci
+                                </div>
+                                <div class="default-form-box mb-20 col-md-3">
+                                    <label>Gender</label>
+                                    Male
+                                </div>
+                                <div class="default-form-box mb-20 col-md-3">
+                                    <label>Birthdate</label>
+                                    15/04/1452
+                                </div>
+                            </div>
+                            <div class="d-flex flex-wrap justify-content-between">
+                                <div class="default-form-box mb-20 col-md-3">
+                                    <label>Phone</label>
+                                    0123456789
+                                </div>
+                                <div class="default-form-box mb-20 col-md-3">
+                                    <label>Email address</label>
+                                    davinci@gmail.com
+                                </div>
+                                <div class="default-form-box mb-20 col-md-3">
+                                    <label>Street address</label>
+                                    Vinci, Tuscan, Arno, Italia
+                                </div>
+                            </div>
+                            <p class="font-italic">Your addresses will be used on the checkout page by default.</p>
+                        </div>
                     </div>
                 </div>
             </div>
