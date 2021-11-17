@@ -17364,7 +17364,6 @@ Layout - Offcanvas
 .mobile-action-icon {
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
 }
 
 .mobile-action-icon-item {
@@ -18046,8 +18045,4 @@ Layout - Footer
   background-image: url(/images/icon/top-arrow.svg);
   background-position: center 50%;
   background-repeat: no-repeat;
-}
-
-.hero-area-bg {
-  opacity: 50%;
 }
