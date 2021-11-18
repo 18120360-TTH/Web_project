@@ -1,28 +1,42 @@
-const express = require('express')
-const handlebars = require('express-handlebars');
-const path = require('path')
-const morgan = require('morgan')
-const route = require('./routes')
+require('dotenv').config()
+const { sequelize } = require('./config/db')
 
-const app = express()
-const port = 3000
+sequelize.authenticate()
+  .then(() => {
+    //Database connected successfully
+    console.log('Connection has been established successfully.')
 
-// Static file
-app.use(express.static(path.join(__dirname, 'public')))
+    //Require library
+    const express = require('express')
+    const handlebars = require('express-handlebars')
+    const path = require('path')
+    const morgan = require('morgan')
+    const route = require('./routes')
 
-// HTTP logger
-app.use(morgan('combined'))
+    const app = express()
+    const port = 3000
 
-// Template engine
-app.engine('hbs', handlebars({
-  extname: '.hbs',
-}));
-app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'resources/views'))
+    // Static file
+    app.use(express.static(path.join(__dirname, 'public')))
 
-// Routes init
-route(app)
+    // HTTP logger
+    app.use(morgan('combined'))
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+    // Template engine
+    app.engine('hbs', handlebars({
+      extname: '.hbs'
+    }));
+    app.set('view engine', 'hbs');
+    app.set('views', path.join(__dirname, 'resources/views'))
+
+    // Routes init
+    route(app)
+
+    app.listen(port, () => {
+      console.log(`Example app listening at http://localhost:${port}`)
+    })
+  
+  })
+  .catch(error => {
+    console.error('Unable to connect to the database:', error);
+  })
