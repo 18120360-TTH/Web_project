@@ -74,7 +74,7 @@
                     <div class="product-details-content-area">
                         <!-- Start  Product Details Text Area-->
                         <div class="product-details-text">
-                            <h4 class="title">Nonstick Dishwasher PFOA</h4>
+                            <h4 class="title">{{bookByID.title}}</h4>
                             <div class="d-flex align-items-center">
                                 <div class="product-review">
                                     <span>Rating: </span>
@@ -85,51 +85,14 @@
                                     <span class="review-empty"><i class="fa fa-star"></i></span>
                                 </div>
                             </div>
-                            <div class="price"><del>$70.00</del>$80.00</div>
-                            <p>eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget
-                                sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem
-                                ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat
-                                vestibulum, metus nisi posuere nisl, in</p>
+                            <div class="price"><del>$70.00</del>${{bookByID.price}}</div>
+                            <p>{{bookByID.description}}</p>
                         </div> <!-- End  Product Details Text Area-->
                         <!-- Start Product Variable Area -->
                         <div class="product-details-variable">
-                            <h4 class="title">Available Options</h4>
-                            <!-- Product Variable Single Item -->
-                            <div class="variable-single-item">
-                                <span>Color</span>
-                                <div class="product-variable-color">
-                                    <label for="product-color-red">
-                                        <input name="product-color" id="product-color-red" class="color-select"
-                                            type="radio" checked>
-                                        <span class="product-color-red"></span>
-                                    </label>
-                                    <label for="product-color-tomato">
-                                        <input name="product-color" id="product-color-tomato" class="color-select"
-                                            type="radio">
-                                        <span class="product-color-tomato"></span>
-                                    </label>
-                                    <label for="product-color-green">
-                                        <input name="product-color" id="product-color-green" class="color-select"
-                                            type="radio">
-                                        <span class="product-color-green"></span>
-                                    </label>
-                                    <label for="product-color-light-green">
-                                        <input name="product-color" id="product-color-light-green" class="color-select"
-                                            type="radio">
-                                        <span class="product-color-light-green"></span>
-                                    </label>
-                                    <label for="product-color-blue">
-                                        <input name="product-color" id="product-color-blue" class="color-select"
-                                            type="radio">
-                                        <span class="product-color-blue"></span>
-                                    </label>
-                                    <label for="product-color-light-blue">
-                                        <input name="product-color" id="product-color-light-blue" class="color-select"
-                                            type="radio">
-                                        <span class="product-color-light-blue"></span>
-                                    </label>
-                                </div>
-                            </div>
+                            <h6 class="title">Available in stock: 
+                                <span class="text-danger">{{bookByID.quantity_in_stock}}</span>
+                            </h6>
                             <!-- Product Variable Single Item -->
                             <div class="d-flex align-items-center">
                                 <div class="variable-single-item ">
@@ -187,18 +150,7 @@
                                 <!-- Start Product Details Tab Content Singel -->
                                 <div class="tab-pane active show" id="description">
                                     <div class="single-tab-content-item">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue
-                                            nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi
-                                            ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate
-                                            adipiscing cursus eu, suscipit id nulla. </p>
-                                        <p>Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem,
-                                            quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies
-                                            massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero
-                                            hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet,
-                                            consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus
-                                            nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus,
-                                            consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in
-                                            imperdiet ligula euismod eget</p>
+                                        <p>{{bookByID.description}}</p>
                                     </div>
                                 </div> <!-- End Product Details Tab Content Singel -->
                                 <!-- Start Product Details Tab Content Singel -->
@@ -207,26 +159,25 @@
                                         <table class="table table-bordered mb-20">
                                             <tbody>
                                                 <tr>
-                                                    <th scope="row">Compositions</th>
-                                                    <td>Polyester</td>
+                                                    <th class="col-2" scope="row">ISBN</th>
+                                                    <td class="col-4">{{bookByID.ISBN}}</td>
+                                                    <th class="col-2" scope="row">Author</th>
+                                                    <td class="col-4">Update later</td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">Styles</th>
-                                                    <td>Girly</td>
+                                                    <th scope="row">Publisher</th>
+                                                    <td>{{bookByID.publisher}}</td>
+                                                    <th scope="row">Number of Pages</th>
+                                                    <td>{{bookByID.number_of_pages}}</td>
+                                                </tr>
                                                 <tr>
-                                                    <th scope="row">Properties</th>
-                                                    <td>Short Dress</td>
+                                                    <th scope="row">Release year</th>
+                                                    <td>{{bookByID.release_date}}</td>
+                                                    <th scope="row">Language</th>
+                                                    <td>{{bookByID.language}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <p>Fashion has been creating well-designed collections since 2010. The brand
-                                            offers feminine designs delivering stylish separates and statement dresses
-                                            which have since evolved into a full ready-to-wear collection in which every
-                                            item is a vital part of a woman's wardrobe. The result? Cool, easy, chic
-                                            looks with youthful elegance and unmistakable signature style. All the
-                                            beautiful pieces are made in Italy and manufactured with the greatest
-                                            attention. Now Fashion extends to a range of accessories including shoes,
-                                            hats, belts and more!</p>
                                     </div>
                                 </div> <!-- End Product Details Tab Content Singel -->
                                 <!-- Start Product Details Tab Content Singel -->
