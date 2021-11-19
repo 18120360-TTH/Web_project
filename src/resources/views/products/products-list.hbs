@@ -144,16 +144,6 @@
                                 </div>
                             </div>
                         </div> <!-- End Single Sidebar Widget -->
-
-                        <!-- Start Single Sidebar Widget -->
-                        <div class="sidebar-single-widget">
-                            <div class="sidebar-content">
-                                <a href="products-list/product-detail" class="sidebar-banner">
-                                    <img class="img-fluid" src="/images/banner_images/aments_banner_04.jpg" alt="">
-                                </a>
-                            </div>
-                        </div> <!-- End Single Sidebar Widget -->
-
                     </div> <!-- End Sidebar Area -->
                 </div>
                 <div class="col-lg-9">
@@ -192,7 +182,7 @@
 
                                     <!-- Start Page Amount -->
                                     <div class="page-amount">
-                                        <span>Showing 1–9 of 21 results</span>
+                                        <span>Showing {{firstIndex}}-{{lastIndex}} of {{numOfResults}} results</span>
                                     </div> <!-- End Page Amount -->
 
                                 </div> <!-- Start Sort Wrapper Box -->
@@ -249,8 +239,8 @@
                                                     <div class="product-list-single border-around">
                                                         <a href="products-list/product-detail"
                                                             class="product-list-img-link">
-                                                            <img src="/images/products_images/aments_products_image_5.jpg"
-                                                                alt="" class="img-fluid">
+                                                            <img src="/images/products_images/0{{id}}_A.jpg" alt=""
+                                                                class="img-fluid">
                                                         </a>
                                                         <div class="product-list-content">
                                                             <h5 class="product-list-link"><a
@@ -285,13 +275,29 @@
                     <!-- Start Pagination -->
                     <div class="page-pagination text-center">
                         <ul>
-                            <li><a href="#">Previous</a></li>
-                            <li><a class="active" href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">Next</a></li>
+                            {{#if isPreValid}}
+                            <li><a class="btn" role="button" href="/products-list?page=1">First</a></li>
+                            <li><a class="btn" role="button" href="/products-list?page={{prePage}}">Previous</a></li>
+                            {{else}}
+                            <li><a class="btn disabled" role="button" href="/products-list?page=1">First</a></li>
+                            <li><a class="btn disabled" role="button"
+                                    href="/products-list?page={{prePage}}">Previous</a></li>
+                            {{/if}}
+
+                            <li><a class="btn active" role="button">{{page}}</a></li>
+
+                            {{#if isNextValid}}
+                            <li><a class="btn" role="button" href="/products-list?page={{nextPage}}">Next</a></li>
+                            <li><a class="btn" role="button" href="/products-list?page={{lastPage}}">Last</a></li>
+                            {{else}}
+                            <li><a class="btn disabled" role="button" href="/products-list?page={{nextPage}}">Next</a>
+                            </li>
+                            <li><a class="btn disabled" role="button" href="/products-list?page={{lastPage}}">Last</a>
+                            </li>
+                            {{/if}}
                         </ul>
-                    </div> <!-- End Pagination -->
+                    </div>
+                    <!-- End Pagination -->
                 </div> <!-- End Shop Product Sorting Section  -->
             </div>
         </div>
