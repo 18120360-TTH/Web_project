@@ -28,7 +28,7 @@
                 <div class="col-lg-3">
                     <!-- Start Sidebar Area -->
                     <div class="siderbar-section">
-                        <form method="GET" action="/products-list/product-filtered">
+                        {{!-- <form method="GET" action="/products-list/product-filtered"> --}}
                             <!-- Start Single Sidebar Widget -->
                             <div class="sidebar-single-widget">
                                 <h6 class="sidebar-title">FILTER BY PRICE</h6>
@@ -39,13 +39,16 @@
                                         <input type="text" name="price" id="amount">
                                     </div> --}}
                                     <label for="amount">Price range: (thousand VNĐ)</label>
-                                    <div class="d-flex mt-4">
-                                        <input type="number" class="form-control mr-1" width="50%" name="min_price"
-                                            id="min_price" min="0" max="1000" value="0">
-                                        <h4> - </h4>
-                                        <input type="number" class="form-control ml-1" width="50%" name="max_price"
-                                            id="max_price" min="0" max="1000" value="1000">
-                                    </div>
+                                    <form method="GET" action="/products-list/product-filtered">
+                                        <div class="d-flex mt-4">
+                                            <input type="number" class="form-control mr-1" width="50%" name="min_price"
+                                                id="min_price" min="0" max="1000" value="0">
+                                            <h4> - </h4>
+                                            <input type="number" class="form-control ml-1 mr-2" width="50%"
+                                                name="max_price" id="max_price" min="0" max="1000" value="1000">
+                                            <button class="btn btn-danger" type="submit">Filter</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div> <!-- End Single Sidebar Widget -->
 
@@ -54,12 +57,15 @@
                                 <h6 class="sidebar-title">AUTHORS</h6>
                                 <div class="sidebar-content">
                                     <div class="filter-type-select">
-                                        <select class="country_option nice-select wide" name="author" id="author">
-                                            <option value="all">All</option>
-                                            {{#each authorsList}}
-                                            <option value="{{author}}">{{author}}</option>
-                                            {{/each}}
-                                        </select>
+                                        <form method="GET" action="/products-list/product-filtered">
+                                            <select class="country_option nice-select wide" name="author" id="author"
+                                                onchange='if(this.value != 0) { this.form.submit(); }'>
+                                                <option value="0">All</option>
+                                                {{#each authorsList}}
+                                                <option value="{{author}}">{{author}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </form>
                                     </div>
                                 </div>
                             </div> <!-- End Single Sidebar Widget -->
@@ -68,12 +74,15 @@
                                 <h6 class="sidebar-title">PUBLISHERS</h6>
                                 <div class="sidebar-content">
                                     <div class="filter-type-select">
-                                        <select class="country_option nice-select wide" name="publisher" id="publisher">
-                                            <option value="all">All</option>
-                                            {{#each publishersList}}
-                                            <option value="{{publisher}}">{{publisher}}</option>
-                                            {{/each}}
-                                        </select>
+                                        <form method="GET" action="/products-list/product-filtered">
+                                            <select class="country_option nice-select wide" name="publisher"
+                                                id="publisher" onchange='if(this.value != 0) { this.form.submit(); }'>
+                                                <option value="all">All</option>
+                                                {{#each publishersList}}
+                                                <option value="{{publisher}}">{{publisher}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </form>
                                     </div>
                                 </div>
                             </div> <!-- End Single Sidebar Widget -->
@@ -83,18 +92,17 @@
                                 <h6 class="sidebar-title">LANGUAGES</h6>
                                 <div class="sidebar-content">
                                     <div class="filter-type-select">
-                                        <select class="country_option nice-select wide" name="language" id="language">
-                                            <option value="all">All</option>
-                                            <option value="all">English</option>
-                                            <option value="all">Vietnamese</option>
-                                        </select>
+                                        <form method="GET" action="/products-list/product-filtered">
+                                            <select class="country_option nice-select wide" name="language"
+                                                id="language" onchange='if(this.value != 0) { this.form.submit(); }'>
+                                                <option value="all">All</option>
+                                                <option value="English">English</option>
+                                                <option value="Vietnamese">Vietnamese</option>
+                                            </select>
+                                        </form>
                                     </div>
                                 </div>
                             </div> <!-- End Single Sidebar Widget -->
-                            <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-danger">Filter</button>
-                            </div>
-                        </form>
                     </div> <!-- End Sidebar Area -->
                 </div>
                 <div class="col-lg-9">
@@ -154,7 +162,7 @@
                                                 <div class="col-xl-4 col-sm-6 col-12">
                                                     <div class="product-default-single border-around">
                                                         <div class="product-img-warp">
-                                                            <a href="products-list/product-detail?ID={{book_id}}"
+                                                            <a href="/products-list/product-detail?ID={{book_id}}"
                                                                 class="product-default-img-link">
                                                                 <img src="{{img_url}}" alt=""
                                                                     class="product-default-img img-fluid">
@@ -169,11 +177,11 @@
                                                         </div>
                                                         <div class="product-default-content">
                                                             <h6 class="product-default-link"><a
-                                                                    href="products-list/product-detail">{{title}}</a>
+                                                                    href="/products-list/product-detail">{{title}}</a>
                                                             </h6>
                                                             <span class="product-default-price"><del
-                                                                    class="product-default-price-off">${{price}}</del>
-                                                                ${{origin_price}}</span>
+                                                                    class="product-default-price-off">${{origin_price}}</del>
+                                                                ${{price}}</span>
                                                         </div>
                                                     </div> <!-- End Product Defautlt Single -->
                                                 </div>
@@ -223,23 +231,22 @@
                     <div class="page-pagination text-center">
                         <ul>
                             {{#if isPreValid}}
-                            <li><a class="btn" role="button" href="/products-list?page=1">First</a></li>
-                            <li><a class="btn" role="button" href="/products-list?page={{prePage}}">Previous</a></li>
+                            <li><a class="btn" role="button" href="{{path}}1">First</a></li>
+                            <li><a class="btn" role="button" href="{{path}}{{prePage}}">Previous</a></li>
                             {{else}}
-                            <li><a class="btn disabled" role="button" href="/products-list?page=1">First</a></li>
-                            <li><a class="btn disabled" role="button"
-                                    href="/products-list?page={{prePage}}">Previous</a></li>
+                            <li><a class="btn disabled" role="button" href="{{path}}1">First</a></li>
+                            <li><a class="btn disabled" role="button" href="{{path}}{{prePage}}">Previous</a></li>
                             {{/if}}
 
                             <li><a class="btn active" role="button">{{page}}</a></li>
 
                             {{#if isNextValid}}
-                            <li><a class="btn" role="button" href="/products-list?page={{nextPage}}">Next</a></li>
-                            <li><a class="btn" role="button" href="/products-list?page={{lastPage}}">Last</a></li>
+                            <li><a class="btn" role="button" href="{{path}}{{nextPage}}">Next</a></li>
+                            <li><a class="btn" role="button" href="{{path}}{{lastPage}}">Last</a></li>
                             {{else}}
-                            <li><a class="btn disabled" role="button" href="/products-list?page={{nextPage}}">Next</a>
+                            <li><a class="btn disabled" role="button" href="{{path}}{{nextPage}}">Next</a>
                             </li>
-                            <li><a class="btn disabled" role="button" href="/products-list?page={{lastPage}}">Last</a>
+                            <li><a class="btn disabled" role="button" href="{{path}}{{lastPage}}">Last</a>
                             </li>
                             {{/if}}
                         </ul>

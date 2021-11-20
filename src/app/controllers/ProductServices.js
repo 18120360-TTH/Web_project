@@ -107,33 +107,88 @@ class ProductServices {
         return new Promise(async (resolve, reject) => {
             try {
                 const offset = (page - 1) * 6
-                const filteredBooks = await models.books.findAll({
-                    raw: true,
-                    offset: offset,
-                    limit: 6,
-                    include: {
-                        model: models.authors,
-                        as: "authors",
+                let filteredBooks
+                let count
+                if (query.author != undefined) {
+                    filteredBooks = await models.books.findAll({
+                        raw: true,
+                        offset: offset,
+                        limit: 6,
+                        include: {
+                            model: models.authors,
+                            as: "authors",
+                            where: {
+                                author_name: query.author
+                            }
+                        },
+                    })
+                    count = await models.books.count({
+                        raw: true,
+                        include: {
+                            model: models.authors,
+                            as: "authors",
+                            where: {
+                                author_name: query.author
+                            }
+                        },
+                    })
+                }
+                else if (query.publisher != undefined) {
+                    filteredBooks = await models.books.findAll({
+                        raw: true,
+                        offset: offset,
+                        limit: 6,
                         where: {
-                            author_name: query.author
+                            publisher: query.publisher
                         }
-                    },
-                    // where: {
-                    // }
-                })
-                const count = await models.books.count({
-                    raw: true,
-                    include: {
-                        model: models.authors,
-                        as: "authors",
+                    })
+                    count = await models.books.count({
+                        raw: true,
                         where: {
-                            author_name: query.author
+                            publisher: query.publisher
                         }
-                    },
-                    // where: {
-                    // }
-                })
-                console.log(count)
+                    })
+                }
+                else if (query.language != undefined) {
+                    filteredBooks = await models.books.findAll({
+                        raw: true,
+                        offset: offset,
+                        limit: 6,
+                        where: {
+                            language: query.language
+                        }
+                    })
+                    count = await models.books.count({
+                        raw: true,
+                        where: {
+                            language: query.language
+                        }
+                    })
+                }
+                else if (query.min_price != undefined && query.max_price != undefined) {
+
+                    filteredBooks = await models.books.findAll({
+                        raw: true,
+                        offset: offset,
+                        limit: 6,
+                        where: {
+                            price: {
+                                [sequelize.Op.between]: [query.min_price * 1000, query.max_price * 1000]
+                            }
+                        }
+                    })
+
+
+
+                    count = await models.books.count({
+                        raw: true,
+                        where: {
+                            price: {
+                                [sequelize.Op.between]: [query.min_price * 1000, query.max_price * 1000]
+                            }
+                        }
+                    })
+                }
                 resolve({ filteredBooks, count })
             }
             catch (err) {

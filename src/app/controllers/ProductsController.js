@@ -1,3 +1,4 @@
+const { query } = require('express')
 const productServices = require('./ProductServices')
 
 class ProductsController {
@@ -44,6 +45,7 @@ class ProductsController {
             authorsList,
             publishersList,
             // Use for pagination
+            path: "/products-list?page=",
             page,
             prePage: parseInt(page) - 1,
             nextPage: parseInt(page) + 1,
@@ -65,12 +67,11 @@ class ProductsController {
         else {
             page = req.query.page
         }
+
         const result = await productServices.getFilteredBook(req.query, page)
         const filteredBooks = result.filteredBooks
         const numOfResults = result.count
-        console.log("----------------")
-        console.log(filteredBooks)
-        console.log("----------------")
+
         // Calculate number of resulted pages
         const totalPage = Math.ceil(numOfResults / 6)
 
@@ -96,12 +97,26 @@ class ProductsController {
         const authorsList = await productServices.getAllAuthors()
         const publishersList = await productServices.getAllPublishers()
 
+        let path = "/products-list/product-filtered?"
+        for (let i in req.query) {
+            if (i != 'page') {
+                path += i + "=" + req.query[i] + "&"
+            }
+        }
+        path += "page="
+
+        console.log("----------------")
+        console.log(path)
+        console.log("----------------")
+
         res.render('products/products-list', {
+
             books: filteredBooks,
             // Use for filter
             authorsList,
             publishersList,
             // Use for pagination
+            path,
             page,
             prePage: parseInt(page) - 1,
             nextPage: parseInt(page) + 1,
