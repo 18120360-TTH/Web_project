@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('books', {
-    id: {
+    book_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
@@ -11,16 +11,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: "ISBN"
     },
-    image: {
-      type: DataTypes.BLOB,
-      allowNull: true
-    },
     title: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
     description: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.TEXT,
       allowNull: true
     },
     publisher: {
@@ -37,15 +33,26 @@ module.exports = function(sequelize, DataTypes) {
     },
     price: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true,
+      defaultValue: 0
     },
-    quantity_in_stock: {
+    origin_price: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    release_date: {
-      type: DataTypes.DATE,
+    quantity_in_stock: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
+    },
+    release_year: {
+      type: "YEAR",
       allowNull: true
+    },
+    is_deleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 0
     }
   }, {
     sequelize,
@@ -57,7 +64,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
+          { name: "book_id" },
         ]
       },
       {

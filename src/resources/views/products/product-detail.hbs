@@ -29,33 +29,18 @@
                 <div class="col-md-6">
                     <div class="product-details-gallery-area d-flex align-items-center flex-row-reverse">
                         <div class="product-large-image product-large-image-vertical ml-15">
+                            {{#each bookImgs}}
                             <div class="product-image-large-single zoom-image-hover">
-                                <img src="/images/products_images/0{{bookByID.id}}_A.jpg" alt="">
+                                <img src="{{img_url}}" alt="">
                             </div>
-                            <div class="product-image-large-single zoom-image-hover">
-                                <img src="/images/products_images/0{{bookByID.id}}_B.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-single zoom-image-hover">
-                                <img src="/images/products_images/0{{bookByID.id}}_C.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-single zoom-image-hover">
-                                <img src="/images/products_images/0{{bookByID.id}}_D.jpg" alt="">
-                            </div>
+                            {{/each}}
                         </div>
                         <div class="product-image-thumb product-image-thumb-vertical pos-relative">
-
+                            {{#each bookImgs}}
                             <div class="zoom-active product-image-thumb-single">
-                                <img class="img-fluid" src="/images/products_images/0{{bookByID.id}}_A.jpg" alt="">
+                                <img class="img-fluid" src="{{img_url}}" alt="">
                             </div>
-                            <div class="product-image-thumb-single">
-                                <img class="img-fluid" src="/images/products_images/0{{bookByID.id}}_B.jpg" alt="">
-                            </div>
-                            <div class="product-image-thumb-single">
-                                <img class="img-fluid" src="/images/products_images/0{{bookByID.id}}_C.jpg" alt="">
-                            </div>
-                            <div class="product-image-thumb-single">
-                                <img class="img-fluid" src="/images/products_images/0{{bookByID.id}}_D.jpg" alt="">
-                            </div>
+                            {{/each}}
                         </div>
                     </div>
                 </div>
@@ -74,7 +59,7 @@
                                     <span class="review-empty"><i class="fa fa-star"></i></span>
                                 </div>
                             </div>
-                            <div class="price"><del>$70.00</del>${{bookByID.price}}</div>
+                            <div class="price"><del>{{bookByID.origin_price}}đ</del>${{bookByID.price}}đ</div>
                             <p>{{bookByID.description}}</p>
                         </div> <!-- End  Product Details Text Area-->
                         <!-- Start Product Variable Area -->
@@ -87,7 +72,7 @@
                                 <div class="variable-single-item ">
                                     <span>Quantity</span>
                                     <div class="product-variable-quantity">
-                                        <input min="1" max="100" value="1" type="number">
+                                        <input min="1" max="{{bookByID.quantity_in_stock}}" value="1" type="number">
                                     </div>
                                 </div>
 
@@ -103,11 +88,9 @@
                             <ul>
                                 <li><a href="#" class="facebook"><i class="fa fa-facebook"></i>Like</a></li>
                                 <li><a href="#" class="twitter"><i class="fa fa-twitter"></i>Tweet</a></li>
-                                <li><a href="#" class="pinterest"><i class="fa fa-pinterest"></i>Save</a>
-                                </li>
+                                <li><a href="#" class="pinterest"><i class="fa fa-pinterest"></i>Save</a></li>
                                 <li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i>Save</a></li>
-                                <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i>Linked</a>
-                                </li>
+                                <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i>Linked</a></li>
                             </ul>
                         </div> <!-- End  Product Details Social Area-->
                     </div>
@@ -154,7 +137,7 @@
                                                     <th class="col-2" scope="row">ISBN</th>
                                                     <td class="col-4">{{bookByID.ISBN}}</td>
                                                     <th class="col-2" scope="row">Author</th>
-                                                    <td class="col-4">Update later</td>
+                                                    <td class="col-4">{{bookByID.authors}}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Publisher</th>
@@ -164,7 +147,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Release year</th>
-                                                    <td>{{bookByID.release_date}}</td>
+                                                    <td>{{bookByID.release_year}}</td>
                                                     <th scope="row">Language</th>
                                                     <td>{{bookByID.language}}</td>
                                                 </tr>

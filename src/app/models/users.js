@@ -11,8 +11,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: "password_hashed"
     },
-    avatar_img: {
-      type: DataTypes.BLOB,
+    avatar_url: {
+      type: DataTypes.STRING(255),
       allowNull: true
     },
     full_name: {

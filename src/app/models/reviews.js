@@ -16,13 +16,13 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       references: {
         model: 'books',
-        key: 'id'
+        key: 'book_id'
       }
     },
     review_date: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.Sequelize.fn('now'),
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       primaryKey: true
     },
     comment: {

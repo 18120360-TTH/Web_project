@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       references: {
         model: 'orders',
-        key: 'id'
+        key: 'order_id'
       }
     },
     book_id: {
@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       references: {
         model: 'books',
-        key: 'id'
+        key: 'book_id'
       }
     },
     items_quantity: {

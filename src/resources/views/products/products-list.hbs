@@ -28,122 +28,73 @@
                 <div class="col-lg-3">
                     <!-- Start Sidebar Area -->
                     <div class="siderbar-section">
+                        <form method="GET" action="/products-list/product-filtered">
+                            <!-- Start Single Sidebar Widget -->
+                            <div class="sidebar-single-widget">
+                                <h6 class="sidebar-title">FILTER BY PRICE</h6>
+                                <div class="sidebar-content">
+                                    {{!-- <div id="slider-range"></div> --}}
+                                    {{!-- <div class="filter-type-price">
+                                        <label for="amount">Price range:</label>
+                                        <input type="text" name="price" id="amount">
+                                    </div> --}}
+                                    <label for="amount">Price range: (thousand VNĐ)</label>
+                                    <div class="d-flex mt-4">
+                                        <input type="number" class="form-control mr-1" width="50%" name="min_price"
+                                            id="min_price" min="0" max="1000" value="0">
+                                        <h4> - </h4>
+                                        <input type="number" class="form-control ml-1" width="50%" name="max_price"
+                                            id="max_price" min="0" max="1000" value="1000">
+                                    </div>
+                                </div>
+                            </div> <!-- End Single Sidebar Widget -->
 
-                        <!-- Start Single Sidebar Widget -->
-                        <div class="sidebar-single-widget">
-                            <h6 class="sidebar-title">FILTER BY PRICE</h6>
-                            <div class="sidebar-content">
-                                <div id="slider-range"></div>
-                                <div class="filter-type-price">
-                                    <label for="amount">Price range:</label>
-                                    <input type="text" id="amount">
+                            <!-- Start Single Sidebar Widget -->
+                            <div class="sidebar-single-widget">
+                                <h6 class="sidebar-title">AUTHORS</h6>
+                                <div class="sidebar-content">
+                                    <div class="filter-type-select">
+                                        <select class="country_option nice-select wide" name="author" id="author">
+                                            <option value="all">All</option>
+                                            {{#each authorsList}}
+                                            <option value="{{author}}">{{author}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                        </div> <!-- End Single Sidebar Widget -->
+                            </div> <!-- End Single Sidebar Widget -->
+                            <!-- Start Single Sidebar Widget -->
+                            <div class="sidebar-single-widget">
+                                <h6 class="sidebar-title">PUBLISHERS</h6>
+                                <div class="sidebar-content">
+                                    <div class="filter-type-select">
+                                        <select class="country_option nice-select wide" name="publisher" id="publisher">
+                                            <option value="all">All</option>
+                                            {{#each publishersList}}
+                                            <option value="{{publisher}}">{{publisher}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> <!-- End Single Sidebar Widget -->
 
-                        <!-- Start Single Sidebar Widget -->
-                        <div class="sidebar-single-widget">
-                            <h6 class="sidebar-title">CATEGORIES</h6>
-                            <div class="sidebar-content">
-                                <div class="filter-type-select">
-                                    <ul>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_1">
-                                                <input type="checkbox" id="catagory_1">
-                                                <span>Catagory (1)</span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_2">
-                                                <input type="checkbox" id="catagory_2">
-                                                <span>Catagory (2)</span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_3">
-                                                <input type="checkbox" id="catagory_3">
-                                                <span>Catagory (3)</span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_4">
-                                                <input type="checkbox" id="catagory_4">
-                                                <span>Catagory (4)</span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_5">
-                                                <input type="checkbox" id="catagory_5">
-                                                <span>Catagory (5)</span>
-                                            </label>
-                                        </li>
-                                    </ul>
+                            <!-- Start Single Sidebar Widget -->
+                            <div class="sidebar-single-widget">
+                                <h6 class="sidebar-title">LANGUAGES</h6>
+                                <div class="sidebar-content">
+                                    <div class="filter-type-select">
+                                        <select class="country_option nice-select wide" name="language" id="language">
+                                            <option value="all">All</option>
+                                            <option value="all">English</option>
+                                            <option value="all">Vietnamese</option>
+                                        </select>
+                                    </div>
                                 </div>
+                            </div> <!-- End Single Sidebar Widget -->
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-danger">Filter</button>
                             </div>
-                        </div> <!-- End Single Sidebar Widget -->
-                        <!-- Start Single Sidebar Widget -->
-                        <div class="sidebar-single-widget">
-                            <h6 class="sidebar-title">PUBLISHER</h6>
-                            <div class="sidebar-content">
-                                <div class="filter-type-select">
-                                    <ul>
-                                        <li>
-                                            <label class="checkbox-default" for="brakeParts">
-                                                <input type="checkbox" id="brakeParts">
-                                                <span>Accessories 1 (6)</span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="accessories">
-                                                <input type="checkbox" id="accessories">
-                                                <span>Accessories 2 (10)</span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="EngineParts">
-                                                <input type="checkbox" id="EngineParts">
-                                                <span>Engine Parts (4)</span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="hermes">
-                                                <input type="checkbox" id="hermes">
-                                                <span>hermes (10)</span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="tommyHilfiger">
-                                                <input type="checkbox" id="tommyHilfiger">
-                                                <span>Tommy Hilfiger(7)</span>
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> <!-- End Single Sidebar Widget -->
-
-                        <!-- Start Single Sidebar Widget -->
-                        <div class="sidebar-single-widget">
-                            <h6 class="sidebar-title">LANGUAGE</h6>
-                            <div class="sidebar-content">
-                                <div class="filter-type-select">
-                                    <ul>
-                                        <li>
-                                            <label class="checkbox-default" for="black">
-                                                <input type="checkbox" id="black">
-                                                <span>English (6)</span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="blue">
-                                                <input type="checkbox" id="blue">
-                                                <span>Vietnamese (8)</span>
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> <!-- End Single Sidebar Widget -->
+                        </form>
                     </div> <!-- End Sidebar Area -->
                 </div>
                 <div class="col-lg-9">
@@ -203,9 +154,9 @@
                                                 <div class="col-xl-4 col-sm-6 col-12">
                                                     <div class="product-default-single border-around">
                                                         <div class="product-img-warp">
-                                                            <a href="products-list/product-detail?ID={{id}}"
+                                                            <a href="products-list/product-detail?ID={{book_id}}"
                                                                 class="product-default-img-link">
-                                                                <img src="/images/products_images/0{{id}}_A.jpg" alt=""
+                                                                <img src="{{img_url}}" alt=""
                                                                     class="product-default-img img-fluid">
                                                             </a>
                                                             <div class="product-action-icon-link">
@@ -222,7 +173,7 @@
                                                             </h6>
                                                             <span class="product-default-price"><del
                                                                     class="product-default-price-off">${{price}}</del>
-                                                                ${{price}}</span>
+                                                                ${{origin_price}}</span>
                                                         </div>
                                                     </div> <!-- End Product Defautlt Single -->
                                                 </div>
@@ -239,22 +190,18 @@
                                                     <div class="product-list-single border-around">
                                                         <a href="products-list/product-detail"
                                                             class="product-list-img-link">
-                                                            <img src="/images/products_images/0{{id}}_A.jpg" alt=""
-                                                                class="img-fluid">
+                                                            <img src="{{img_url}}" alt="" class="img-fluid">
                                                         </a>
                                                         <div class="product-list-content">
                                                             <h5 class="product-list-link"><a
                                                                     href="products-list/product-detail">{{title}}</a>
                                                             </h5>
                                                             <span class="product-list-price"><del
-                                                                    class="product-list-price-off">$30.12</del>
+                                                                    class="product-list-price-off">${{origin_price}}</del>
                                                                 ${{price}}</span>
                                                             <p>{{description}}</p>
                                                             <div class="product-action-icon-link-list">
                                                                 <ul>
-                                                                    <li><a href="#" data-toggle="modal"
-                                                                            data-target="#modalQuickview"><i
-                                                                                class="icon-eye"></i></a></li>
                                                                     <li><a href="#" data-toggle="modal"
                                                                             data-target="#modalAddcart"><i
                                                                                 class="icon-shopping-cart"></i></a></li>

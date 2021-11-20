@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('orders', {
-    id: {
+    order_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
@@ -16,7 +16,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     total_cost: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
+      defaultValue: 0
     },
     shipping_fee: {
       type: DataTypes.INTEGER,
@@ -47,11 +48,12 @@ module.exports = function(sequelize, DataTypes) {
     order_date: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.fn('now')
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
     expected_arriving_time: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.literal('now() + interval 7 day')
     }
   }, {
     sequelize,
@@ -63,7 +65,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
+          { name: "order_id" },
         ]
       },
       {

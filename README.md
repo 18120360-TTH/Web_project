@@ -13,7 +13,7 @@
 - [x] Connect database
 - [ ] Đổ dữ liệu hoàn chỉnh vào database (Update ảnh minh họa)
 - [x] Hiển thị data lên Products-list
-- [ ] Phân trang Products-list
+- [x] Phân trang Products-list
 - [ ] Lọc data hiển thị trên Products-list
 - [x] Hiển thị data lên products-detail
 - [ ] Hosting code

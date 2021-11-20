@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('categories_of_book', {
     category: {
-      type: DataTypes.ENUM('01','02','03','04','05'),
+      type: DataTypes.ENUM('English learning','Self-help','Business','Short stories','Long story'),
       allowNull: false,
       primaryKey: true
     },
@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       references: {
         model: 'books',
-        key: 'id'
+        key: 'book_id'
       }
     }
   }, {
