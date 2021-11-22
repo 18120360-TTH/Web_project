@@ -1,4 +1,4 @@
-const { query } = require('express')
+// const { query } = require('express')
 const productServices = require('./ProductServices')
 
 class ProductsController {
@@ -105,9 +105,9 @@ class ProductsController {
         }
         path += "page="
 
-        console.log("----------------")
-        console.log(path)
-        console.log("----------------")
+        // console.log("----------------")
+        // console.log(path)
+        // console.log("----------------")
 
         res.render('products/products-list', {
 

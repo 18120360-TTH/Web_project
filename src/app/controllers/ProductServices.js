@@ -5,7 +5,9 @@ class ProductServices {
     countAllBooks = () => {
         return new Promise(async (resolve, reject) => {
             try {
-                const amount = models.books.count()
+                const amount = models.books.count({
+                    where: { is_deleted: false }
+                })
                 resolve(amount)
             }
             catch (err) {
@@ -18,7 +20,14 @@ class ProductServices {
         return new Promise(async (resolve, reject) => {
             try {
                 const offset = (page - 1) * 6
-                const books = models.books.findAll({ raw: true, offset: offset, limit: 6 })
+                const books = models.books.findAll({
+                    raw: true,
+                    offset: offset,
+                    limit: 6,
+                    where: {
+                        is_deleted: false
+                    }
+                })
                 resolve(books)
             }
             catch (err) {
@@ -81,7 +90,10 @@ class ProductServices {
             try {
                 const publishersList = models.books.findAll({
                     raw: true,
-                    attributes: [[sequelize.fn('DISTINCT', sequelize.col('publisher')), 'publisher']]
+                    attributes: [[sequelize.fn('DISTINCT', sequelize.col('publisher')), 'publisher']],
+                    where: {
+                        is_deleted: false
+                    }
                 })
                 resolve(publishersList)
             }
@@ -94,7 +106,10 @@ class ProductServices {
     getBookByID = (ID) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const book = models.books.findByPk(ID, { raw: true })
+                const book = models.books.findByPk(ID, {
+                    raw: true,
+                    where: { is_deleted: false }
+                })
                 resolve(book)
             }
             catch (err) {
@@ -114,6 +129,7 @@ class ProductServices {
                         raw: true,
                         offset: offset,
                         limit: 6,
+                        where: { is_deleted: false },
                         include: {
                             model: models.authors,
                             as: "authors",
@@ -139,13 +155,15 @@ class ProductServices {
                         offset: offset,
                         limit: 6,
                         where: {
-                            publisher: query.publisher
+                            publisher: query.publisher,
+                            is_deleted: false
                         }
                     })
                     count = await models.books.count({
                         raw: true,
                         where: {
-                            publisher: query.publisher
+                            publisher: query.publisher,
+                            is_deleted: false
                         }
                     })
                 }
@@ -155,18 +173,19 @@ class ProductServices {
                         offset: offset,
                         limit: 6,
                         where: {
-                            language: query.language
+                            language: query.language,
+                            is_deleted: false
                         }
                     })
                     count = await models.books.count({
                         raw: true,
                         where: {
-                            language: query.language
+                            language: query.language,
+                            is_deleted: false
                         }
                     })
                 }
                 else if (query.min_price != undefined && query.max_price != undefined) {
-
                     filteredBooks = await models.books.findAll({
                         raw: true,
                         offset: offset,
@@ -174,18 +193,18 @@ class ProductServices {
                         where: {
                             price: {
                                 [sequelize.Op.between]: [query.min_price * 1000, query.max_price * 1000]
-                            }
+                            },
+                            is_deleted: false
                         }
                     })
-
-
 
                     count = await models.books.count({
                         raw: true,
                         where: {
                             price: {
                                 [sequelize.Op.between]: [query.min_price * 1000, query.max_price * 1000]
-                            }
+                            },
+                            is_deleted: false
                         }
                     })
                 }

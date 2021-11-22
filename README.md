@@ -11,9 +11,9 @@
 - [ ] Xóa các file không dùng
 - [x] MVC struture
 - [x] Connect database
-- [ ] Đổ dữ liệu hoàn chỉnh vào database (Update ảnh minh họa)
+- [x] Database hoàn chỉnh (Books, Categories, Images & Authors)
 - [x] Hiển thị data lên Products-list
 - [x] Phân trang Products-list
-- [ ] Lọc data hiển thị trên Products-list
+- [x] Lọc data Products-list (Lọc đơn tiêu chí)
 - [x] Hiển thị data lên products-detail
 - [ ] Hosting code
