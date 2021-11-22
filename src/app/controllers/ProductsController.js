@@ -110,7 +110,6 @@ class ProductsController {
         // console.log("----------------")
 
         res.render('products/products-list', {
-
             books: filteredBooks,
             // Use for filter
             authorsList,
