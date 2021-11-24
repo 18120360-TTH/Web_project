@@ -17082,14 +17082,14 @@ Layout - Header
 
 .mega-menu {
   position: absolute;
-  min-width: 100%;
+  min-width: 15%;
   padding: 25px 30px 30px 30px;
   background: #FFF;
   box-shadow: 0 3px 11px 0 rgba(0, 0, 0, 0.1);
   transform: perspective(600px) rotateX(-90deg);
   transform-origin: 0 0 0;
-  left: 0;
-  right: 0;
+  left: 108;
+  right: 108;
   opacity: 0;
   visibility: hidden;
   transition: 0.5s;

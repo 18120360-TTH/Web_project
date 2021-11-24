@@ -103,6 +103,40 @@ class ProductServices {
         })
     }
 
+
+    getAllPublishers = () => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const publishersList = models.books.findAll({
+                    raw: true,
+                    attributes: [[sequelize.fn('DISTINCT', sequelize.col('publisher')), 'publisher']],
+                    where: {
+                        is_deleted: false
+                    }
+                })
+                resolve(publishersList)
+            }
+            catch (err) {
+                reject(err)
+            }
+        })
+    }
+
+    getAllCategories = () => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const categoriesList = models.categories_of_book.findAll({
+                    raw: true,
+                    attributes: [[sequelize.fn('DISTINCT', sequelize.col('category')), 'category']],
+                })
+                resolve(categoriesList)
+            }
+            catch (err) {
+                reject(err)
+            }
+        })
+    }
+
     getBookByID = (ID) => {
         return new Promise(async (resolve, reject) => {
             try {
@@ -117,7 +151,47 @@ class ProductServices {
             }
         })
     }
-    // min_price, max_price, author, publisher, language
+
+    getBooksByCategory = (category, page) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                // console.log("------------------------------------")
+                // console.log(category)
+                // console.log("------------------------------------")
+                const offset = (page - 1) * 6
+                const categorizedBooks = await models.books.findAll({
+                    raw: true,
+                    offset: offset,
+                    limit: 6,
+                    where: { is_deleted: false },
+                    include: {
+                        model: models.categories_of_book,
+                        as: "categories_of_book",
+                        where: {
+                            category: category
+                        }
+                    }
+                })
+                const count = await models.books.count({
+                    raw: true,
+                    include: {
+                        model: models.categories_of_book,
+                        as: "categories_of_book",
+                        where: {
+                            category: category
+                        }
+                    }
+                })
+                resolve({ categorizedBooks, count })
+            }
+            catch (err) {
+                reject(err)
+            }
+        })
+    }
+
+
+
     getFilteredBook = (query, page) => {
         return new Promise(async (resolve, reject) => {
             try {

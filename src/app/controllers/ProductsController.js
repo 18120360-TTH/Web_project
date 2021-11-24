@@ -1,4 +1,5 @@
 // const { query } = require('express')
+const { query } = require('express')
 const productServices = require('./ProductServices')
 
 class ProductsController {
@@ -59,6 +60,75 @@ class ProductsController {
         })
     }
 
+    async category(req, res) {
+        let page
+        if (req.query.page == undefined) {
+            page = 1
+        }
+        else {
+            page = req.query.page
+        }
+
+        const result = await productServices.getBooksByCategory(req.query.category, page)
+        const books = result.categorizedBooks
+        const numOfResults = result.count
+
+        // Calculate number of resulted pages
+        const totalPage = Math.ceil(numOfResults / 6)
+
+        // If user access an invalid page
+        if (req.query.page < 1 || req.query.page > totalPage || (isNaN(req.query.page) && req.query.page != undefined)) {
+            res.render('errors/404')
+        }
+
+        for (let i in books) {
+            const bookImgs = await productServices.getBookImages(books[i].book_id)
+            books[i].img_url = bookImgs[0].img_url
+
+        }
+
+        // On the first page, disable "Previous" and "First" button
+        // On the last page, disable "Next" and "Last" button
+        let isPreValid = true
+        let isNextValid = true
+        if (page == 1) { isPreValid = false }
+        if (page == totalPage) { isNextValid = false }
+
+        const authorsList = await productServices.getAllAuthors()
+        const publishersList = await productServices.getAllPublishers()
+
+        // console.log("------------------------------------")
+        // console.log(req)
+        // console.log("------------------------------------")
+
+        let path = "/products-list/category?"
+        for (let i in req.query) {
+            if (i != 'page') {
+                path += i + "=" + req.query[i] + "&"
+            }
+        }
+        path += "page="
+
+        res.render('products/products-list', {
+            books,
+            // Use for filter
+            authorsList,
+            publishersList,
+            // Use for pagination
+            path,
+            page,
+            prePage: parseInt(page) - 1,
+            nextPage: parseInt(page) + 1,
+            lastPage: totalPage,
+            isPreValid,
+            isNextValid,
+            // Use to indicate results order
+            firstIndex: (page - 1) * 6 + 1,
+            lastIndex: (page - 1) * 6 + books.length,
+            numOfResults
+        })
+    }
+
     async filter(req, res) {
         let page
         if (req.query.page == undefined) {
@@ -74,8 +144,6 @@ class ProductsController {
 
         // Calculate number of resulted pages
         const totalPage = Math.ceil(numOfResults / 6)
-
-        // If user access products-list without page
 
         // If user access an invalid page
         if (req.query.page < 1 || req.query.page > totalPage || (isNaN(req.query.page) && req.query.page != undefined)) {
@@ -104,10 +172,6 @@ class ProductsController {
             }
         }
         path += "page="
-
-        // console.log("----------------")
-        // console.log(path)
-        // console.log("----------------")
 
         res.render('products/products-list', {
             books: filteredBooks,
