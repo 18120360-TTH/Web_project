@@ -13687,6 +13687,7 @@ Components - Hero
   width: 100%;
   object-fit: cover;
   height: 360px;
+  opacity: 0.5;
 }
 @media (min-width: 576px) {
   .hero-img {
@@ -18045,4 +18046,10 @@ Layout - Footer
   background-image: url(/images/icon/top-arrow.svg);
   background-position: center 50%;
   background-repeat: no-repeat;
+}
+
+#books-list-description {
+  max-height: 50px;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
 }
