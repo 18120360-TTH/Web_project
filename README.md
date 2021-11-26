@@ -14,6 +14,7 @@
 - [x] Database hoàn chỉnh (Books, Categories, Images & Authors)
 - [x] Hiển thị data lên Products-list
 - [x] Phân trang Products-list
-- [x] Lọc data Products-list (Lọc đơn tiêu chí)
+- [x] Phân loại sách
+- [x] Lọc data Products-list (Lọc kết hợp nhiều tiêu chí chí)
 - [x] Hiển thị data lên products-detail
 - [ ] Hosting code

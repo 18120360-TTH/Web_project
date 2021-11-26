@@ -29,18 +29,32 @@
                 <div class="col-md-6">
                     <div class="product-details-gallery-area d-flex align-items-center flex-row-reverse">
                         <div class="product-large-image product-large-image-vertical ml-15">
-                            {{#each bookImgs}}
                             <div class="product-image-large-single zoom-image-hover">
-                                <img src="{{img_url}}" alt="">
+                                <img src="{{bookByID.img_1}}" alt="">
                             </div>
-                            {{/each}}
+                            <div class="product-image-large-single zoom-image-hover">
+                                <img src="{{bookByID.img_2}}" alt="">
+                            </div>
+                            <div class="product-image-large-single zoom-image-hover">
+                                <img src="{{bookByID.img_3}}" alt="">
+                            </div>
+                            <div class="product-image-large-single zoom-image-hover">
+                                <img src="{{bookByID.img_4}}" alt="">
+                            </div>
                         </div>
                         <div class="product-image-thumb product-image-thumb-vertical pos-relative">
-                            {{#each bookImgs}}
                             <div class="zoom-active product-image-thumb-single">
-                                <img class="img-fluid" src="{{img_url}}" alt="">
+                                <img class="img-fluid" src="{{bookByID.img_1}}" alt="">
                             </div>
-                            {{/each}}
+                            <div class="zoom-active product-image-thumb-single">
+                                <img class="img-fluid" src="{{bookByID.img_2}}" alt="">
+                            </div>
+                            <div class="zoom-active product-image-thumb-single">
+                                <img class="img-fluid" src="{{bookByID.img_3}}" alt="">
+                            </div>
+                            <div class="zoom-active product-image-thumb-single">
+                                <img class="img-fluid" src="{{bookByID.img_4}}" alt="">
+                            </div>
                         </div>
                     </div>
                 </div>

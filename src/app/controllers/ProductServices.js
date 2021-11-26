@@ -209,10 +209,6 @@ class ProductServices {
                     }
                 })
 
-                // console.log("------------------------------------")
-                // console.log(result)
-                // console.log("------------------------------------")
-
                 const searchedBooks = result.rows
                 const count = result.count
 

@@ -27,7 +27,11 @@ class ProductsController {
 
         for (let i in books) {
             const bookImgs = await productServices.getImagesByBook(books[i].book_id)
-            books[i].img_url = bookImgs[0].img_url
+            for (let j in bookImgs) {
+                if (bookImgs[j].img_order == 1) {
+                    books[i].img_url = bookImgs[j].img_url
+                }
+            }
         }
 
         // On the first page, disable "Previous" and "First" button
@@ -84,8 +88,11 @@ class ProductsController {
 
         for (let i in books) {
             const bookImgs = await productServices.getImagesByBook(books[i].book_id)
-            books[i].img_url = bookImgs[0].img_url
-
+            for (let j in bookImgs) {
+                if (bookImgs[j].img_order == 1) {
+                    books[i].img_url = bookImgs[j].img_url
+                }
+            }
         }
 
         // On the first page, disable "Previous" and "First" button
@@ -149,7 +156,11 @@ class ProductsController {
 
         for (let i in filteredBooks) {
             const bookImgs = await productServices.getImagesByBook(filteredBooks[i].book_id)
-            filteredBooks[i].img_url = bookImgs[0].img_url
+            for (let j in bookImgs) {
+                if (bookImgs[j].img_order == 1) {
+                    filteredBooks[i].img_url = bookImgs[j].img_url
+                }
+            }
         }
 
         // On the first page, disable "Previous" and "First" button
@@ -203,10 +214,6 @@ class ProductsController {
         const searchedBooks = result.searchedBooks
         const count = result.count
 
-        // console.log("------------------------------------")
-        // console.log(result)
-        // console.log("------------------------------------")
-
         // Calculate number of resulted pages
         const totalPage = Math.ceil(count / 6)
 
@@ -217,7 +224,11 @@ class ProductsController {
 
         for (let i in searchedBooks) {
             const bookImgs = await productServices.getImagesByBook(searchedBooks[i].book_id)
-            searchedBooks[i].img_url = bookImgs[0].img_url
+            for (let j in bookImgs) {
+                if (bookImgs[j].img_order == 1) {
+                    searchedBooks[i].img_url = bookImgs[j].img_url
+                }
+            }
         }
 
         // On the first page, disable "Previous" and "First" button
@@ -272,11 +283,15 @@ class ProductsController {
         }
         bookByID.authors = authors
 
+        for (let i in bookImgs) {
+            bookByID['img_' + bookImgs[i].img_order] = bookImgs[i].img_url
+        }
+
         if (bookByID == null) {
             res.render('errors/404')
         }
         else {
-            res.render('products/product-detail', { bookByID, bookImgs })
+            res.render('products/product-detail', { bookByID })
         }
     }
 }
