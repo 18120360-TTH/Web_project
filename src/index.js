@@ -29,13 +29,22 @@ sequelize.authenticate()
     app.set('view engine', 'hbs');
     app.set('views', path.join(__dirname, 'resources/views'))
 
+    // Handlebars register
+    let hbs = handlebars.create({});
+    // Keep selected value in pagination
+    hbs.handlebars.registerHelper('select', function (selected, options) {
+      return options.fn(this).replace(
+        new RegExp(' value=\"' + selected + '\"'),
+        '$& selected="selected"');
+    });
+
     // Routes init
     route(app)
 
     app.listen(port, () => {
       console.log(`Example app listening at http://localhost:${port}`)
     })
-  
+
   })
   .catch(error => {
     console.error('Unable to connect to the database:', error);

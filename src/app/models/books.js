@@ -53,6 +53,16 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: 0
+    },
+    view_times: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
+    },
+    sold: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
     }
   }, {
     sequelize,

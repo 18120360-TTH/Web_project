@@ -113,6 +113,10 @@ class ProductServices {
                     raw: true,
                     where: { is_deleted: false }
                 })
+                await models.books.update({ view_times: book.view_times + 1 }, {
+                    raw: true,
+                    where: { book_id: ID }
+                })
                 resolve(book)
             }
             catch (err) {
@@ -213,6 +217,56 @@ class ProductServices {
                 const count = result.count
 
                 resolve({ searchedBooks, count })
+            }
+            catch (err) {
+                reject(err)
+            }
+        })
+    }
+
+    getSortedBooks(sort, page) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const offset = (page - 1) * 6
+
+                let orderClause = {}
+                if (sort == "title_a") {
+                    orderClause = [['title', 'ASC']]
+                }
+                else if (sort == "title_z") {
+                    orderClause = [['title', 'DESC']]
+                }
+                else if (sort == "best_sell") {
+                    orderClause = [['sold', 'DESC']]
+                }
+                else if (sort == "most_view") {
+                    orderClause = [['view_times', 'DESC']]
+                }
+                else if (sort == "released_year") {
+                    orderClause = [['release_year', 'DESC']]
+                }
+                else if (sort == "low_price") {
+                    orderClause = [['price', 'ASC']]
+                }
+                else if (sort == "high_price") {
+                    orderClause = [['price', 'DESC']]
+                }
+
+                const result = await models.books.findAndCountAll({
+                    raw: true,
+                    offset: offset,
+                    limit: 6,
+                    order: orderClause
+                })
+
+                const sortedBooks = result.rows
+                const count = result.count
+
+                // console.log("-------------------------------------")
+                // console.log(sortedBooks)
+                // console.log("-------------------------------------")
+
+                resolve({ sortedBooks, count })
             }
             catch (err) {
                 reject(err)

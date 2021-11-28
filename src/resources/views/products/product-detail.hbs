@@ -64,13 +64,20 @@
                         <div class="product-details-text">
                             <h4 class="title">{{bookByID.title}}</h4>
                             <div class="d-flex align-items-center">
-                                <div class="product-review">
+
+                                <div class="product-review mr-4">
                                     <span>Rating: </span>
                                     <span class="review-fill"><i class="fa fa-star"></i></span>
                                     <span class="review-fill"><i class="fa fa-star"></i></span>
                                     <span class="review-fill"><i class="fa fa-star"></i></span>
                                     <span class="review-fill"><i class="fa fa-star"></i></span>
                                     <span class="review-empty"><i class="fa fa-star"></i></span>
+                                </div>
+                                <div class="product-review mr-4">
+                                    <span>View: {{bookByID.view_times}}</span>
+                                </div>
+                                <div class="product-review">
+                                    <span>Sold: {{bookByID.sold}}</span>
                                 </div>
                             </div>
                             <div class="price"><del>{{bookByID.origin_price}}đ</del>${{bookByID.price}}đ</div>
