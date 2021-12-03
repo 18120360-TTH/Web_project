@@ -1,7 +1,26 @@
 const { models } = require('../../config/db')
 const sequelize = require('sequelize')
 
-class AuthServices{
+class AuthServices {
+    findUser = (username) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const result = await models.users.findOne({
+                    raw: true,
+                    where: {
+                        username: username,
+                        role: 'Customer'
+                    }
+                })
+
+                resolve(result)
+            }
+            catch (err) {
+                reject(err)
+            }
+        })
+    }
+    
     addNewAccount = (AccountInfo) => {
         return new Promise(async (resolve, reject) => {
             try {

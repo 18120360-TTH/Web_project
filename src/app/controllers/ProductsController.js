@@ -1,4 +1,3 @@
-// const { query } = require('express')
 const { query } = require('express')
 const productServices = require('./ProductServices')
 
