@@ -22,6 +22,10 @@ sequelize.authenticate()
     // HTTP logger
     app.use(morgan('combined'))
 
+    //Middleware to get <form> data
+    app.use(express.urlencoded({ extended: true }))
+    app.use(express.json())
+
     // Template engine
     app.engine('hbs', handlebars({
       extname: '.hbs'

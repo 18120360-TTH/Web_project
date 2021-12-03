@@ -7,4 +7,9 @@ router.use('/signup', authController.signup)
 router.use('/password-recovery', authController.pass_recover)
 router.use('/password-reset', authController.pass_reset)
 
+/* router.get('/signup', authController.signup)
+router.post('/signup/new-account', authController.create_account)
+ */
+router.post('/create-account', authController.create_account)
+
 module.exports = router
