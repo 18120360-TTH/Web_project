@@ -26,10 +26,12 @@
                 </div>
                 <div class="col-4 text-right d-flex justify-content-end">
                     <!-- Start Header Action Icon -->
+                    {{#if user}}
                     <a href="/my-account" class="mr-5">
-                        <img src="/images/avatars/person-0.png" alt="Guest" width="45" class="rounded-circle mr-2">
-                        Guest
+                        <img src="{{user.avatar_url}}" alt="Guest" width="45" class="rounded-circle mr-2">
+                        {{user.full_name}}
                     </a>
+                    {{/if}}
                     <ul class="header-action-icon">
                         <li>
                             <a href="/cart">
@@ -98,8 +100,12 @@
                                     class="rounded-circle mr-1"> Leonard Da Vinci
                             </a> --}}
                             <ul>
+                                {{#if user}}
+                                <li><a href="/auth/logout">Log out</a></li>
+                                {{else}}
                                 <li><a href="/auth/signup">Sign up</a></li>
                                 <li><a href="/auth/login">Log in</a></li>
+                                {{/if}}
                             </ul>
                         </nav>
                     </div> <!-- Header Main Menu Start -->
@@ -146,12 +152,14 @@
         <div class="mobile-menu-center">
             <!-- Start Header Action Icon -->
             <ul class="mobile-action-icon">
+                {{#if user}}
                 <li class="mobile-action-icon-item">
                     <a href="/my-account">
-                        <img src="/images/avatars/person-1.jpg" alt="Andrew Robles" width="40"
+                        <img src="{{user.avatar_url}}" alt="{{user.avatar_fullname}}" width="40"
                             class="rounded-circle mr-2">
                     </a>
                 </li>
+                {{/if}}
                 <li class="mobile-action-icon-item">
                     <a href="/cart" class="mobile-action-icon-link">
                         <i class="icon-shopping-cart"></i>
@@ -174,9 +182,11 @@
             <!-- Start Mobile Menu Nav -->
             <div class="offcanvas-menu">
                 <ul>
-                    <li>
-                        <a href="#"><span>Home</span></a>
-                    </li>
+                    <li> <a href="/"><span>Home</span></a> </li>
+                    {{#unless user}}
+                    <li> <a href="/auth/login"><span>Log in</span></a> </li>
+                    <li> <a href="/auth/signup"><span>Sign up</span></a> </li>
+                    {{/unless}}
                     <li>
                         <a href="#"><span>Categories</span></a>
                         <ul class="mobile-sub-menu">

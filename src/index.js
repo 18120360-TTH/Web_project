@@ -11,6 +11,9 @@ sequelize.authenticate()
     const handlebars = require('express-handlebars')
     const path = require('path')
     const morgan = require('morgan')
+    const passport = require('passport')
+    const session = require('express-session')
+
     const route = require('./routes')
 
     const app = express()
@@ -22,10 +25,23 @@ sequelize.authenticate()
     // HTTP logger
     app.use(morgan('combined'))
 
+    //Middleware to get <form> data
+    app.use(express.urlencoded({ extended: true }))
+    app.use(express.json())
+
+    // Authentication init
+    app.use(session({
+      secret: 'my_secret',
+      // resave: false,
+      // saveUninitialized: true,
+      // cookie: { secure: true }
+    }))
+    app.use(passport.initialize())
+    app.use(passport.session())
+
+
     // Template engine
-    app.engine('hbs', handlebars({
-      extname: '.hbs'
-    }));
+    app.engine('hbs', handlebars({ extname: '.hbs' }));
     app.set('view engine', 'hbs');
     app.set('views', path.join(__dirname, 'resources/views'))
 

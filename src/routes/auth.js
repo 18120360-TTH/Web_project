@@ -1,10 +1,26 @@
 const express = require('express')
-const router = express.Router()
+const passport = require('passport')
 const authController = require('../app/controllers/AuthController')
+const initPassportLocal = require('../app/controllers/auth/PassportLocal')
 
-router.use('/login', authController.login)
-router.use('/signup', authController.signup)
-router.use('/password-recovery', authController.pass_recover)
-router.use('/password-reset', authController.pass_reset)
+const router = express.Router()
+
+initPassportLocal()
+
+router.post('/login', function (req, res, next) {
+    console.log(req)
+    next()
+},
+    passport.authenticate('local', { failureRedirect: '/auth/login?failed=true' }),
+    authController.login
+)
+
+router.get('/login', authController.loginView)
+router.get('/signup', authController.signup)
+
+router.use(authController.authenCheck)
+router.get('/logout', authController.logout)
+router.get('/password-recovery', authController.pass_recover)
+router.get('/password-reset', authController.pass_reset)
 
 module.exports = router
