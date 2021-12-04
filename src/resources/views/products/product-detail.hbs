@@ -290,27 +290,53 @@
                                                     *</p>
                                             </div>
 
-                                            <form action="#" method="post">
+                                            <form method="POST">
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="default-form-box mb-20">
                                                             <label for="comment-name">Your name
                                                                 <span>*</span></label>
-                                                            <input id="comment-name" type="text"
+                                                            {{#if user}}
+                                                            <input id="comment-name" type="text" name="name"
+                                                                placeholder="Enter your name" value="{{user.username}}"
+                                                                readonly>
+                                                            {{else}}
+                                                            <input id="comment-name" type="text" name="name"
                                                                 placeholder="Enter your name" required>
+                                                            {{/if}}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="default-form-box mb-20">
-                                                            <label for="comment-email">Rating
+                                                            <label for="comment-rating">Rating
                                                                 <span>*</span></label>
+                                                            <div
+                                                                class="rate d-flex align-items-center flex-row-reverse">
+                                                                <input type="radio" id="star5" name="rate"
+                                                                    value="5_star" />
+                                                                <label for="star5" title="text">5 stars</label>
+                                                                <input type="radio" id="star4" name="rate"
+                                                                    value="4_star" />
+                                                                <label for="star4" title="text">4 stars</label>
+                                                                <input type="radio" id="star3" name="rate"
+                                                                    value="3_star" checked />
+                                                                <label for="star3" title="text">3 stars</label>
+                                                                <input type="radio" id="star2" name="rate"
+                                                                    value="2_star" />
+                                                                <label for="star2" title="text">2 stars</label>
+                                                                <input type="radio" id="star1" name="rate"
+                                                                    value="1_star" />
+                                                                <label for="star1" title="text">1 star</label>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row">
                                                     <div class="col-12">
                                                         <div class="default-form-box mb-20">
                                                             <label for="comment-review-text">Your review
                                                                 <span>*</span></label>
-                                                            <textarea id="comment-review-text"
+                                                            <textarea id="comment-review-text" name="comment"
                                                                 placeholder="Write a review" required></textarea>
                                                         </div>
                                                     </div>

@@ -273,6 +273,26 @@ class ProductServices {
             }
         })
     }
+
+    reviewBook(ID, review) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                console.log("-------------------------------------")
+                console.log(ID, review)
+                console.log("-------------------------------------")
+                const result = await models.reviews.create({
+                    customer_username: review.name,
+                    book_id: ID,
+                    rating: review.rate,
+                    comment: review.comment
+                }, { raw: true })
+
+
+                resolve(result)
+            }
+            catch (err) { reject(err) }
+        })
+    }
 }
 
 module.exports = new ProductServices

@@ -380,6 +380,15 @@ class ProductsController {
             res.render('products/product-detail', { bookByID })
         }
     }
+
+    // [POST] //products-list/product-detail?ID=
+    async review(req, res) {
+        console.log("-------------------------------------")
+        console.log(req.query.ID, req.body)
+        console.log("-------------------------------------")
+        const result = await productServices.reviewBook(req.query.ID, req.body)
+        res.redirect('/products-list/product-detail?ID=' + req.query.ID)
+    }
 }
 
 module.exports = new ProductsController
