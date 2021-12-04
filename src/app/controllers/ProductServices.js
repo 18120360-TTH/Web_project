@@ -274,40 +274,25 @@ class ProductServices {
         })
     }
 
-    getAllCategories = () => {
+    reviewBook(ID, review) {
         return new Promise(async (resolve, reject) => {
             try {
-                const categoriesList = await models.categories_of_book.findAll({
-                    raw: true,
-                    attributes: [[sequelize.fn('DISTINCT', sequelize.col('category')), 'category']],
-                })
-                resolve(categoriesList)
+                console.log("-------------------------------------")
+                console.log(ID, review)
+                console.log("-------------------------------------")
+                const result = await models.reviews.create({
+                    customer_username: review.name,
+                    book_id: ID,
+                    rating: review.rate,
+                    comment: review.comment
+                }, { raw: true })
+
+
+                resolve(result)
             }
-            catch (err) {
-                reject(err)
-            }
+            catch (err) { reject(err) }
         })
     }
-
-    getBookByID = (ID) => {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const book = await models.books.findByPk(ID, {
-                    raw: true,
-                    where: { is_deleted: false }
-                })
-                await models.books.update({ view_times: book.view_times + 1 }, {
-                    raw: true,
-                    where: { book_id: ID }
-                })
-                resolve(book)
-            }
-            catch (err) {
-                reject(err)
-            }
-        })
-    }
-
 }
 
 module.exports = new ProductServices
