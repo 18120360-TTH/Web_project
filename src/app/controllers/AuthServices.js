@@ -1,5 +1,5 @@
 const { models } = require('../../config/db')
-const sequelize = require('sequelize')
+const bcrypt = require('bcrypt')
 
 class AuthServices {
     findUser = (username) => {
@@ -20,28 +20,25 @@ class AuthServices {
             }
         })
     }
-    
-    addNewAccount = (AccountInfo) => {
+
+    addNewAccount = (accountInfo) => {
         return new Promise(async (resolve, reject) => {
             try {
-
-                await models.users.create({
-                    username:AccountInfo.username,
-                    password_hashed: AccountInfo.password,
-                    full_name: (AccountInfo.firstname + " " + AccountInfo.lastname),
-                    email: AccountInfo.email,
-                    avatar_url: '../../public/images/avatars/person-0.png',
-                    address: (AccountInfo.address + " " + AccountInfo.country),
+                const result = await models.users.create({
+                    username: accountInfo.username,
+                    password_hashed: bcrypt.hashSync(accountInfo.password, 10),
+                    full_name: (accountInfo.firstname + " " + accountInfo.lastname),
+                    email: accountInfo.email,
+                    avatar_url: '/images/avatars/person-0.png',
+                    address: (accountInfo.address),
                     role: "Customer",
                     active: 1,
-                    phone_number: AccountInfo.phone_number
+                    phone_number: accountInfo.phone_number
                 }, { raw: true })
 
-                resolve("New account added !!!")
+                resolve(result)
             }
-            catch (err) {
-                reject(err)
-            }
+            catch (err) { reject(err) }
         })
     }
 }
