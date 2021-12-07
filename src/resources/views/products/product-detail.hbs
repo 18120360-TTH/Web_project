@@ -136,7 +136,7 @@
                                     <h5>Specification</h5>
                                 </a></li>
                             <li><a class="nav-link" data-toggle="tab" href="#review">
-                                    <h5>Reviews (1)</h5>
+                                    <h5>Reviews ({{bookReviews.count}})</h5>
                                 </a></li>
                         </ul> <!-- End Product Details Tab Button -->
 
@@ -175,113 +175,76 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                </div> <!-- End Product Details Tab Content Singel -->
-                                <!-- Start Product Details Tab Content Singel -->
+                                </div>
+
                                 <div class="tab-pane" id="review">
                                     <div class="single-tab-content-item">
-                                        <!-- Start - Review Comment -->
                                         <ul class="comment">
-                                            <!-- Start - Review Comment list-->
+                                            {{#each bookReviews.rows}}
                                             <li class="comment-list">
-                                                <div class="comment-wrapper">
-                                                    <div class="comment-img">
-                                                        <img src="/images/user/image-1.png" alt="">
+                                                <div class="comment-content">
+                                                    <div class="comment-content-top col-12">
+                                                        <div class="comment-content-left">
+                                                            <h6 class="comment-name">{{customer_username}}</h6>
+                                                            <span>({{review_date}})</span>
+                                                        </div>
+                                                        <div class="comment-content-right">
+                                                            <div class="product-review">
+                                                                {{#renderStars rating}}
+                                                                <span class="review-fill"><i
+                                                                        class="fa fa-star"></i></span>
+                                                                <span class="review-fill"><i
+                                                                        class="fa fa-star"></i></span>
+                                                                <span class="review-fill"><i
+                                                                        class="fa fa-star"></i></span>
+                                                                <span class="review-fill"><i
+                                                                        class="fa fa-star"></i></span>
+                                                                <span class="review-empty"><i
+                                                                        class="fa fa-star"></i></span>
+                                                                {{/renderStars}}
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="comment-content">
-                                                        <div class="comment-content-top">
-                                                            <div class="comment-content-left">
-                                                                <h6 class="comment-name">Kaedyn Fraser</h6>
-                                                                <div class="product-review">
-                                                                    <span class="review-fill"><i
-                                                                            class="fa fa-star"></i></span>
-                                                                    <span class="review-fill"><i
-                                                                            class="fa fa-star"></i></span>
-                                                                    <span class="review-fill"><i
-                                                                            class="fa fa-star"></i></span>
-                                                                    <span class="review-fill"><i
-                                                                            class="fa fa-star"></i></span>
-                                                                    <span class="review-empty"><i
-                                                                            class="fa fa-star"></i></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="comment-content-right">
-                                                                <a href="#"><i class="fa fa-reply"></i>Reply</a>
-                                                            </div>
-                                                        </div>
 
-                                                        <div class="para-content">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit.
-                                                                Tempora inventore dolorem a unde modi iste
-                                                                odio amet,
-                                                                fugit fuga aliquam, voluptatem maiores animi
-                                                                dolor nulla
-                                                                magnam ea! Dignissimos aspernatur cumque nam
-                                                                quod sint
-                                                                provident modi alias culpa, inventore
-                                                                deserunt
-                                                                accusantium amet earum soluta consequatur
-                                                                quasi eum eius
-                                                                laboriosam, maiores praesentium explicabo
-                                                                enim dolores
-                                                                quaerat! Voluptas ad ullam quia odio sint
-                                                                sunt. Ipsam
-                                                                officia, saepe repellat. </p>
-                                                        </div>
+                                                    <div class="para-content">
+                                                        <p>{{comment}}</p>
                                                     </div>
                                                 </div>
-                                            </li> <!-- End - Review Comment list-->
-                                            <!-- Start - Review Comment list-->
-                                            <li class="comment-list">
-                                                <div class="comment-wrapper">
-                                                    <div class="comment-img">
-                                                        <img src="/images/user/image-3.png" alt="">
-                                                    </div>
-                                                    <div class="comment-content">
-                                                        <div class="comment-content-top">
-                                                            <div class="comment-content-left">
-                                                                <h6 class="comment-name">Jaydin Jones</h6>
-                                                                <div class="product-review">
-                                                                    <span class="review-fill"><i
-                                                                            class="fa fa-star"></i></span>
-                                                                    <span class="review-fill"><i
-                                                                            class="fa fa-star"></i></span>
-                                                                    <span class="review-fill"><i
-                                                                            class="fa fa-star"></i></span>
-                                                                    <span class="review-fill"><i
-                                                                            class="fa fa-star"></i></span>
-                                                                    <span class="review-empty"><i
-                                                                            class="fa fa-star"></i></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="comment-content-right">
-                                                                <a href="#"><i class="fa fa-reply"></i>Reply</a>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="para-content">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit.
-                                                                Tempora inventore dolorem a unde modi iste
-                                                                odio amet,
-                                                                fugit fuga aliquam, voluptatem maiores animi
-                                                                dolor nulla
-                                                                magnam ea! Dignissimos aspernatur cumque nam
-                                                                quod sint
-                                                                provident modi alias culpa, inventore
-                                                                deserunt
-                                                                accusantium amet earum soluta consequatur
-                                                                quasi eum eius
-                                                                laboriosam, maiores praesentium explicabo
-                                                                enim dolores
-                                                                quaerat! Voluptas ad ullam quia odio sint
-                                                                sunt. Ipsam
-                                                                officia, saepe repellat. </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li> <!-- End - Review Comment list-->
+                                            </li>
+                                            {{/each}}
                                         </ul> <!-- End - Review Comment -->
+                                        <div class="page-pagination text-center">
+                                            <ul>
+                                                {{#if isPreValid}}
+                                                <li><a class="btn" role="button" href="{{path}}1">First</a></li>
+                                                <li><a class="btn" role="button"
+                                                        href="{{path}}{{prePage}}">{{prePage}}</a>
+                                                </li>
+                                                {{else}}
+                                                <li><a class="btn disabled" role="button" href="{{path}}1">First</a>
+                                                </li>
+                                                {{!-- <li><a class="btn disabled" role="button"
+                                                        href="{{path}}{{prePage}}">Previous</a></li> --}}
+                                                {{/if}}
+
+                                                <li><a class="btn active" role="button">{{page}}</a></li>
+
+                                                {{#if isNextValid}}
+                                                <li><a class="btn" role="button"
+                                                        href="{{path}}{{nextPage}}">{{nextPage}}</a>
+                                                </li>
+                                                <li><a class="btn" role="button" href="{{path}}{{lastPage}}">Last</a>
+                                                </li>
+                                                {{else}}
+                                                {{!-- <li><a class="btn disabled" role="button"
+                                                        href="{{path}}{{nextPage}}">Next</a>
+                                                </li> --}}
+                                                <li><a class="btn disabled" role="button"
+                                                        href="{{path}}{{lastPage}}">Last</a>
+                                                </li>
+                                                {{/if}}
+                                            </ul>
+                                        </div>
                                         <div class="review-form">
                                             <div class="review-form-text-top">
                                                 <h5>ADD A REVIEW</h5>

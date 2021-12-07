@@ -361,6 +361,8 @@ class ProductsController {
         const bookImgs = await productServices.getImagesByBook(req.query.ID)
         const bookAuthors = await productServices.getAuthorsByBook(req.query.ID)
 
+        // Add authors into book
+        console.log(bookAuthors.join(', '))
         let authors = bookAuthors[0].author_name
         for (let i in bookAuthors) {
             if (i != 0) {
@@ -369,15 +371,41 @@ class ProductsController {
         }
         bookByID.authors = authors
 
+        // Add imgs into book
         for (let i in bookImgs) {
             bookByID['img_' + bookImgs[i].img_order] = bookImgs[i].img_url
         }
 
-        if (bookByID == null) {
-            res.render('errors/404')
-        }
+        // Review
+        let page
+        if (req.query.page == undefined) { page = 1 }
+        else { page = req.query.page }
+        const bookReviews = await productServices.getReviewByBook(req.query.ID, page)
+
+        // console.log(bookReviews)
+        const totalPage = Math.ceil(bookReviews.count / 3)
+        // On the first page, disable "Previous" and "First" button
+        // On the last page, disable "Next" and "Last" button
+        let isPreValid = true
+        let isNextValid = true
+        if (page == 1) { isPreValid = false }
+        if (page == totalPage) { isNextValid = false }
+
+
+        if (bookByID == null) { res.render('errors/404') }
         else {
-            res.render('products/product-detail', { bookByID })
+            res.render('products/product-detail', {
+                bookByID,
+                bookReviews,
+                // Use for pagination
+                path: "/products-list/product-detail?ID=" + req.query.ID + "&page=",
+                page,
+                prePage: parseInt(page) - 1,
+                nextPage: parseInt(page) + 1,
+                lastPage: totalPage,
+                isPreValid,
+                isNextValid,
+            })
         }
     }
 

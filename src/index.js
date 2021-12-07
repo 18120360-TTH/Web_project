@@ -38,8 +38,8 @@ sequelize.authenticate()
     }))
     app.use(passport.initialize())
     app.use(passport.session())
-    
-    
+
+
     // Template engine
     app.engine('hbs', handlebars({ extname: '.hbs' }));
     app.set('view engine', 'hbs');
@@ -52,6 +52,15 @@ sequelize.authenticate()
       return options.fn(this).replace(
         new RegExp(' value=\"' + selected + '\"'),
         '$& selected="selected"');
+    });
+    // Rating status
+    hbs.handlebars.registerHelper('renderStars', (rating) => {
+      let result = '';
+      for (let i = 1; i <= 5; i++) {
+        let checked = parseInt(rating) >= i ? 'fill' : 'empty';
+        result += `<span class="mr-1 review-${checked}"><i class="fa fa-star"></i></span>`;
+      }
+      return new hbs.handlebars.SafeString(result);
     });
 
     // Routes init

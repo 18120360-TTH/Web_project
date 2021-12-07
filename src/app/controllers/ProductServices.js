@@ -46,15 +46,28 @@ class ProductServices {
             try {
                 const authors = await models.authors.findAll({
                     raw: true,
-                    where: {
-                        book_id: ID
-                    }
+                    where: { book_id: ID }
                 })
                 resolve(authors)
             }
             catch (err) {
                 reject(err)
             }
+        })
+    }
+
+    getReviewByBook = (ID, page) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const { rows, count } = await models.reviews.findAndCountAll({
+                    raw: true,
+                    offset: (page - 1) * 3,
+                    limit: 3,
+                    where: { book_id: ID }
+                })
+                resolve({ rows, count })
+            }
+            catch (err) { reject(err) }
         })
     }
 
