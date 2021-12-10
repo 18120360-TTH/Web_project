@@ -19,7 +19,7 @@ class SitesServices {
                     avatar_url: avatar_url
                 }, {
                     raw: true,
-                    where: { username: username, role: 'Customer' }
+                    where: { username: username, role: 'Admin' }
                 })
 
                 resolve(result)

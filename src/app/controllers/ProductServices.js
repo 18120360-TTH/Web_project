@@ -237,6 +237,46 @@ class ProductServices {
         })
     }
 
+    getAdSearchedBooks(keywords, page, limit) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let searchClause = {
+                    raw: true,
+                    offset: (page - 1) * limit,
+                    limit: limit,
+                    where: { is_deleted: false }
+                }
+                if (keywords.title) {
+                    searchClause.where.title = {
+                        [sequelize.Op.substring]: keywords.title
+                    }
+                }
+                if (keywords.publisher) {
+                    searchClause.where.publisher = {
+                        [sequelize.Op.substring]: keywords.publisher
+                    }
+                }
+                if (keywords.author) {
+                    searchClause.include = {
+                        model: models.authors,
+                        as: 'authors',
+                        where: { author_name: { [sequelize.Op.substring]: keywords.author } }
+                    }
+                }
+                if (keywords.old_year && keywords.new_year) {
+                    searchClause.where.release_year = {
+                        [sequelize.Op.between]: [keywords.old_year, keywords.new_year]
+                    }
+                }
+
+                const result = await models.books.findAndCountAll(searchClause)
+
+                resolve({ searchedBooks: result.rows, count: result.count })
+            }
+            catch (err) { reject(err) }
+        })
+    }
+
     getSortedBooks(sort, page) {
         return new Promise(async (resolve, reject) => {
             try {

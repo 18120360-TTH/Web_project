@@ -28,22 +28,27 @@
                 <!--login area start-->
                 <div class="col-lg-6 col-md-6">
                     <div class="account_form">
-                        <form action="#" method="POST">
+                        <form action="/products-list/advanced-searched" method="GET">
                             <div class="default-form-box mb-4">
                                 <label>Book tittle</label>
-                                <input type="text" placeholder="Type the name of book...">
+                                <input type="text" placeholder="Type the name of book..." name="title">
                             </div>
                             <div class="default-form-box mb-4">
                                 <label>Author</label>
-                                <input type="text" placeholder="Type the author of book...">
+                                <input type="text" placeholder="Type the author of book..." name="author">
                             </div>
                             <div class="default-form-box mb-4">
-                                <label>Release date</label>
-                                <input type="text" placeholder="Type the book's release date...">
+                                <label>Release year</label>
+                                <div class="d-flex">
+                                    <input class="mr-3" type="number" placeholder="Oldest..." name="old_year" min="1500"
+                                        max="2100">
+                                    <input type="number" placeholder="Newest..." name="new_year" min="1500" max="2100">
+                                </div>
                             </div>
                             <div class="default-form-box mb-4">
                                 <label>Publisher</label>
-                                <input type="text" placeholder="Type the company published the book...">
+                                <input type="text" placeholder="Type the company published the book..."
+                                    name="publisher">
                             </div>
                             <div class="login_submit d-flex justify-content-center">
                                 <button type="submit">Search</button>
