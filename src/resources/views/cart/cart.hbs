@@ -28,7 +28,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="table_desc">
+                        <form class="table_desc" method="POST" action="/cart/update-items">
                             <div class="table_page table-responsive">
                                 <table>
                                     <!-- Start Cart Table Head -->
@@ -44,17 +44,22 @@
                                     </thead> <!-- End Cart Table Head -->
                                     <tbody>
                                         {{#each books}}
-                                        <tr>
-                                            <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a>
+                                        <tr id="book_{{book_id}}">
+                                            <td class="product_remove">
+                                                <a href="" onclick="return deleteCart({{book_id}});"><i
+                                                        class="fa fa-trash-o"></i></a>
                                             </td>
                                             <td class="product_thumb"><a href="/products-list/product-detail"><img
                                                         src="{{[book.images.img_url]}}" alt=""></a></td>
-                                            <td class="product_name"><a
-                                                    href="/products-list/product-detail?ID={{book_id}}">{{[book.title]}}</a>
+                                            <td class="product_name">
+                                                <a href="/products-list/product-detail?ID={{book_id}}">
+                                                    {{[book.title]}}
+                                                </a>
                                             </td>
                                             <td>{{[book.price]}} đ</td>
-                                            <td class="product_quantity"><label>Quantity</label> <input min="1"
-                                                    max="100" value="{{book_quantity}}" type="number"></td>
+                                            <td class="product_quantity"><label>Quantity</label> <input
+                                                    id="quantity_{{book_id}}" min="0" max="{{[book.quantity_in_stock]}}"
+                                                    value="{{book_quantity}}" type="number" name="{{book_id}}"></td>
                                             <td class="product-price text-danger">{{total_cost}} đ</td>
                                         </tr>
                                         {{/each}}
@@ -64,7 +69,7 @@
                             <div class="cart_submit">
                                 <button type="submit">update cart</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -114,3 +119,4 @@
 
     </div> <!-- ...:::: End Cart Section:::... -->
 </body>
+<script type="text/javascript" src="/js/custom_js/cart-delete.js"></script>

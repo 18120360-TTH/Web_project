@@ -5,7 +5,6 @@ class CartController {
     // [GET]  /cart
     async cart(req, res) {
         const { books, count } = await cartServices.getCart(req.session.unauthId)
-        console.log(books)
         res.render('cart/cart', { books })
     }
 
@@ -14,8 +13,14 @@ class CartController {
 
     // [POST] /cart/add-items
     async addItems(req, res) {
-        // console.log(req.body)
         const msg = await cartServices.addBookToCart(req.session.unauthId, req.body)
+        const backURL = req.header('Referer') || '/';
+        res.redirect(backURL);
+    }
+
+    // [POST] /cart/update-items
+    async updateItems(req, res) {
+        const msg = await cartServices.updateCart(req.session.unauthId, req.body)
         const backURL = req.header('Referer') || '/';
         res.redirect(backURL);
     }
