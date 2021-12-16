@@ -283,8 +283,8 @@ class ProductsController {
         if (req.query.page == undefined) { page = 1 }
         else { page = req.query.page }
 
-        console.log("--------------------------------")
-        console.log(req.query)
+        // console.log("--------------------------------")
+        // console.log(req.query)
 
         const { searchedBooks, count } = await productServices.getAdSearchedBooks(req.query, page, limit)
 
@@ -392,8 +392,6 @@ class ProductsController {
         }
         path += "page="
 
-        console.log(req.query.sort)
-
         res.render('products/products-list', {
             books,
             // Use for filter
@@ -423,7 +421,6 @@ class ProductsController {
         const bookAuthors = await productServices.getAuthorsByBook(req.query.ID)
 
         // Add authors into book
-        console.log(bookAuthors.join(', '))
         let authors = bookAuthors[0].author_name
         for (let i in bookAuthors) {
             if (i != 0) {
@@ -472,9 +469,9 @@ class ProductsController {
 
     // [POST] //products-list/product-detail?ID=
     async review(req, res) {
-        console.log("-------------------------------------")
-        console.log(req.query.ID, req.body)
-        console.log("-------------------------------------")
+        // console.log("-------------------------------------")
+        // console.log(req.query.ID, req.body)
+        // console.log("-------------------------------------")
         const result = await productServices.reviewBook(req.query.ID, req.body)
         res.redirect('/products-list/product-detail?ID=' + req.query.ID)
     }

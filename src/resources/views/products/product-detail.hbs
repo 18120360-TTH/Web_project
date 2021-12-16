@@ -89,19 +89,21 @@
                                 <span class="text-danger">{{bookByID.quantity_in_stock}}</span>
                             </h6>
                             <!-- Product Variable Single Item -->
-                            <div class="d-flex align-items-center">
+                            <form class="d-flex align-items-center" method="POST" action="/cart/add-items">
                                 <div class="variable-single-item ">
                                     <span>Quantity</span>
                                     <div class="product-variable-quantity">
-                                        <input min="1" max="{{bookByID.quantity_in_stock}}" value="1" type="number">
+                                        <input type="hidden" value={{bookByID.book_id}} name="book_id">
+                                        <input min="1" max="{{bookByID.quantity_in_stock}}" value="1" type="number"
+                                            name="quantity">
                                     </div>
                                 </div>
 
                                 <div class="product-add-to-cart-btn">
-                                    <a href="#" data-toggle="modal" data-target="#modalAddcart">Add To
-                                        Cart</a>
+                                    <a href=""><button class="btn text-white" type="submit">Add To Cart</button></a>
+                                    {{!-- <a href="#" data-toggle="modal" data-target="#modalAddcart"></a> --}}
                                 </div>
-                            </div>
+                            </form>
                         </div> <!-- End Product Variable Area -->
 
                         <!-- Start  Product Details Social Area-->

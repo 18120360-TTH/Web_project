@@ -3,7 +3,8 @@ const router = express.Router()
 const cartController = require('../app/controllers/CartController')
 const authController = require('../app/controllers/AuthController')
 
-router.use('/checkout', authController.authenCheck, cartController.checkout)
-router.use('/', cartController.cart)
+router.get('/checkout', authController.authenCheck, cartController.checkout)
+router.get('/', cartController.cart)
+router.post('/add-items', cartController.addItems)
 
 module.exports = router

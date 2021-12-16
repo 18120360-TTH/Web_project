@@ -10,13 +10,13 @@ let initPassportLocal = () => {
         passReqToCallback: true
     }, async (req, username, password, done) => {
         try {
-            console.log("Password hashed--------------------------------------")
-            console.log(username, password)
-            console.log(await bcrypt.hash(password, 10))
+            // console.log("Password hashed--------------------------------------")
+            // console.log(username, password)
+            // console.log(await bcrypt.hash(password, 10))
 
             const userRecord = await authServices.findUser(username)
 
-            console.log(userRecord)
+            // console.log(userRecord)
 
             if (userRecord && await bcrypt.compare(password, userRecord.password_hashed)) {
                 return done(null, userRecord)
@@ -33,8 +33,8 @@ let initPassportLocal = () => {
 }
 
 passport.serializeUser((user, done) => {
-    console.log("passport.serializeUser----------------------")
-    console.log(user)
+    // console.log("passport.serializeUser----------------------")
+    // console.log(user)
     done(null, {
         username: user.username,
         avatar_url: user.avatar_url,
@@ -57,8 +57,8 @@ passport.deserializeUser(async (user, done) => {
     //     console.log(error)
     //     return done(null, false)
     // }
-    console.log("passport.deserializeUser----------------------")
-    console.log(user)
+    // console.log("passport.deserializeUser----------------------")
+    // console.log(user)
     done(null, user)
 })
 

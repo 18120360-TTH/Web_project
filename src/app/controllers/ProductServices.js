@@ -330,9 +330,9 @@ class ProductServices {
     reviewBook(ID, review) {
         return new Promise(async (resolve, reject) => {
             try {
-                console.log("-------------------------------------")
-                console.log(ID, review)
-                console.log("-------------------------------------")
+                // console.log("-------------------------------------")
+                // console.log(ID, review)
+                // console.log("-------------------------------------")
                 const result = await models.reviews.create({
                     customer_username: review.name,
                     book_id: ID,
