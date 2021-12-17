@@ -147,13 +147,18 @@ class ProductServices {
                     offset: offset,
                     limit: 6,
                     where: { is_deleted: false },
-                    include: {
-                        model: models.categories_of_book,
-                        as: "categories_of_book",
-                        where: {
-                            category: category
-                        }
-                    }
+                    include: [
+                        {
+                            model: models.categories_of_book,
+                            as: "categories_of_book",
+                            where: { category: category }
+                        },
+                        // {
+                        //     model: models.images,
+                        //     as: 'images',
+                        //     where: { img_order: 1 }
+                        // }
+                    ]
                 })
 
                 const categorizedBooks = result.rows

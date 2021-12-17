@@ -73,9 +73,11 @@
                                     </tbody>
                                 </table>
                             </div>
+                            {{#if books}}
                             <div class="cart_submit">
                                 <button type="submit">update cart</button>
                             </div>
+                            {{/if}}
                         </form>
                     </div>
                 </div>
@@ -83,6 +85,7 @@
         </div> <!-- End Cart Table -->
 
         <!-- Start Coupon Start -->
+        {{#if books}}
         <div class="coupon_area">
             <div class="container">
                 <div class="row">
@@ -123,7 +126,7 @@
                 </div>
             </div>
         </div> <!-- End Coupon Start -->
-
+        {{/if}}
     </div> <!-- ...:::: End Cart Section:::... -->
 </body>
 <script type="text/javascript" src="/js/custom_js/cart-delete.js"></script>

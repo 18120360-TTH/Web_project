@@ -1,5 +1,6 @@
 const { models } = require('../../config/db')
 const sequelize = require('sequelize')
+const categories_of_book = require('../models/categories_of_book')
 
 class SitesServices {
     updateProfile = (username, profile, avatar) => {
@@ -24,11 +25,24 @@ class SitesServices {
 
                 resolve(result)
             }
-            catch (err) {
-                reject(err)
-            }
+            catch (err) { reject(err) }
         })
     }
+
+    // randomBook = (category) => {
+    //     return new Promise(async (resolve, reject) => {
+    //         try {
+    //             const books = await models.books.findAndCountAll({
+    //                 raw: true,
+    //                 limit: 4,
+    //                 where: { is_deleted: false }
+    //             })
+
+    //             resolve(books)
+    //         }
+    //         catch (err) { reject(err) }
+    //     })
+    // }
 }
 
 module.exports = new SitesServices

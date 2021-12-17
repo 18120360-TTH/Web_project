@@ -51,124 +51,108 @@
             </div>
             <!-- Start User Details Checkout Form -->
             <div class="checkout_form">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <form action="#">
-                            <h3>Delivery address</h3>
-                            <div class="row">
-                                <div class="col-12 mb-20">
-                                    <div class="default-form-box">
-                                        <label for="country">Country <span>*</span></label>
-                                        <select class="country_option nice-select wide" name="country" id="country">
-                                            <option value="2">Vietnam</option>
-                                            <option value="3">Algeria</option>
-                                            <option value="4">Afghanistan</option>
-                                            <option value="5">Ghana</option>
-                                            <option value="6">Albania</option>
-                                            <option value="7">Bahrain</option>
-                                            <option value="8">Colombia</option>
-                                            <option value="9">Dominican Republic</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-20">
-                                    <div class="default-form-box">
-                                        <label>Town / City <span>*</span></label>
-                                        <input type="text" placeholder="Ex: Cantho, Dongthap, Angiang, ...">
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-20">
-                                    <div class="default-form-box">
-                                        <label>Street address <span>*</span></label>
-                                        <input placeholder="House number / street name / ..." type="text">
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-20">
-                                    <div class="default-form-box">
-                                        <input placeholder="Ward / District / ..." type="text">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 mb-20">
-                                    <div class="default-form-box">
-                                        <label>Phone number<span>*</span></label>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-20">
-                                    <div class="default-form-box">
-                                        <label> Email Address <span>*</span></label>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <form action="#">
+                <form action="/cart/checkout" method="POST">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-lg-6 col-md-6">
                             <h3>Your order</h3>
                             <div class="order_table table-responsive">
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Product</th>
-                                            <th>Total</th>
+                                            <th class="col-9">Product</th>
+                                            <th class="col-3">Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {{#each books}}
                                         <tr>
-                                            <td> Handbag fringilla <strong> × 2</strong></td>
-                                            <td> $165.00</td>
+                                            <td>{{[book.title]}}<strong class="text-danger"> ×
+                                                    {{book_quantity}}</strong></td>
+                                            <td class="text-right">{{total_cost}} đ</td>
                                         </tr>
-                                        <tr>
-                                            <td> Handbag justo <strong> × 2</strong></td>
-                                            <td> $50.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td> Handbag elit <strong> × 2</strong></td>
-                                            <td> $50.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td> Handbag Rutrum <strong> × 1</strong></td>
-                                            <td> $50.00</td>
-                                        </tr>
+                                        {{/each}}
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>Cart Subtotal</th>
-                                            <td>$215.00</td>
+                                            <th class="text-right">Cart Subtotal</th>
+                                            <td class="text-right text-danger"><strong>{{fee.subTotal}} Đ</strong>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <th>Shipping</th>
-                                            <td><strong>$5.00</strong></td>
+                                            <th class="text-right">Shipping</th>
+                                            <td class="text-right text-danger"><strong>{{fee.shipping}} Đ</strong>
+                                            </td>
                                         </tr>
                                         <tr class="order_total">
-                                            <th>Order Total</th>
-                                            <td><strong>$220.00</strong></td>
+                                            <th class="text-right">Order Total</th>
+                                            <td class="text-right text-danger"><strong>{{fee.total}} Đ</strong></td>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
-                            <div class="payment_method">
-                                <div class="default-form-box mb-20">
-                                    <div class="input-radio p-2  d-flex justify-content-around">
-                                        <span class="custom-radio"><input type="radio" value="1" name="id_payment"
-                                                checked="checked">Cash on delivery - COD</span>
-                                        <span class="custom-radio"><input type="radio" value="1"
-                                                name="id_payment">Credit / debit card</span>
-                                        <span class="custom-radio"><input type="radio" value="1"
-                                                name="id_payment">Paypal</span>
+                        </div>
+                        <div class="col-lg-5 col-md-5">
+                            <h3>Delivery address</h3>
+                            <div class="row">
+                                <div class="col-12 mb-20">
+                                    <div class="default-form-box">
+                                        <label>Receiver name <span>*</span></label>
+                                        <input type="text" name="receiver" placeholder="Ex: Nguyen Van Long ..."
+                                            required>
                                     </div>
                                 </div>
+                                <div class="col-lg-6 mb-20">
+                                    <div class="default-form-box">
+                                        <label>Phone number<span>*</span></label>
+                                        <input type="text" name="phone" placeholder="Ex: 0935xxx..." required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-20">
+                                    <div class="default-form-box">
+                                        <label> Email Address <span>*</span></label>
+                                        <input type="email" name="email" placeholder="Ex: nnk@gmail.com..." required>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-20">
+                                    <div class="default-form-box">
+                                        <label>Street address <span>*</span></label>
+                                        <input type="text" name="street"
+                                            placeholder="Ex: House number / street name / ..." required>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-20">
+                                    <div class="default-form-box">
+                                        <label>Town / City <span>*</span></label>
+                                        <input type="text" name="city" placeholder="Ex: Ward / District / ..." required>
+                                    </div>
+                                </div>
+                                <div class="payment_method">
+                                    <div class="default-form-box mb-20">
+                                        <div class="input-radio p-2 d-flex justify-content-around">
+                                            <span class="custom-radio">
+                                                <input type="radio" value="COD" name="payment" checked="checked">
+                                                Cash on delivery - COD
+                                            </span>
+                                            <span class="custom-radio">
+                                                <input type="radio" value="Credit" name="payment">
+                                                Credit / debit card
+                                            </span>
+                                            <span class="custom-radio">
+                                                <input type="radio" value="Paypal" name="payment">
+                                                Paypal
+                                            </span>
+                                        </div>
+                                    </div>
 
-                                <div class="order_button pt-15 d-flex justify-content-center">
-                                    <button type="submit">Proceed</button>
+                                    <div class="order_button pt-15 d-flex justify-content-center">
+                                        <button type="submit">Proceed</button>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
-            </div> <!-- Start User Details Checkout Form -->
+                </form>
+            </div>
         </div>
-    </div><!-- ...:::: End Checkout Section:::... -->
+    </div>
 </body>

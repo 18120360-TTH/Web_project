@@ -1,11 +1,24 @@
 const authServices = require('./AuthServices')
-const sitesServices = require('./SitesServices')
+const productServices = require('./ProductServices')
 const multer = require('multer')
 const path = require('path')
+const { resourceLimits } = require('worker_threads')
 
 class SitesController {
     // [GET]  /
-    home(req, res) { res.render('sites/index') }
+    async home(req, res) {
+        const { categorizedBooks } = await productServices.getBooksByCategory('Self-help', 1)
+        for (let i in categorizedBooks) {
+            const bookImgs = await productServices.getImagesByBook(categorizedBooks[i].book_id)
+            for (let j in bookImgs) {
+                if (bookImgs[j].img_order == 1) {
+                    categorizedBooks[i].img_url = bookImgs[j].img_url
+                }
+            }
+        }
+
+        res.render('sites/index', { books: categorizedBooks })
+    }
 
     // [GET]  /about-us
     about(req, res) { res.render('sites/about-us') }

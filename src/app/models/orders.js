@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('orders', {
     order_id: {
       type: DataTypes.INTEGER,
@@ -29,13 +29,17 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     delivery_status: {
-      type: DataTypes.ENUM('Prepare','ReadyToDeliver','Delivering','Complete'),
+      type: DataTypes.ENUM('Packed', 'In transit', 'Delivered', 'Chargeback'),
       allowNull: true,
-      defaultValue: "Prepare"
+      defaultValue: 'Packed'
     },
     payment_method: {
       type: DataTypes.ENUM('COD'),
       allowNull: true
+    },
+    receiver_name: {
+      type: DataTypes.STRING(40),
+      allowNull: false
     },
     customer_phone_number: {
       type: DataTypes.STRING(255),

@@ -34,7 +34,6 @@ class CartServices {
                         book_quantity: book.quantity,
                         total_cost: book.quantity * bookInfo.price
                     }, { raw: true })
-
                 }
 
                 resolve("Added " + book.quantity + " books into your cart!")
@@ -168,6 +167,71 @@ class CartServices {
                 else {
                     resolve(null)
                 }
+            }
+            catch (err) { reject(err) }
+        })
+    }
+
+    proceedCart = (username, orderInfo) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const cart = await models.carts.findAll({
+                    raw: true,
+                    where: { customer_username: username }
+                })
+
+                if (cart) {
+                    let fee = {}
+                    fee.subTotal = 0
+                    fee.itemsCount = 0
+                    for (let i in cart) {
+                        fee.subTotal += cart[i].total_cost
+                        fee.itemsCount += cart[i].book_quantity
+                    }
+                    fee.shipping = 20000 + fee.itemsCount * 1000
+                    fee.total = fee.subTotal + fee.shipping
+
+                    const newOrderID = await models.orders.max('order_id') + 1
+
+                    await models.orders.create({
+                        order_id: newOrderID,
+                        customer_username: username,
+                        total_cost: fee.subTotal,
+                        shipping_fee: fee.shipping,
+                        payment_method: orderInfo.payment,
+                        receiver_name: orderInfo.receiver,
+                        customer_phone_number: orderInfo.phone,
+                        customer_address: orderInfo.street + ', ' + orderInfo.city
+                    })
+
+                    for (let i in cart) {
+                        await models.order_items.create({
+                            order_id: newOrderID,
+                            book_id: cart[i].book_id,
+                            items_quantity: cart[i].book_quantity
+                        })
+                        await models.carts.destroy({
+                            where: {
+                                customer_username: username,
+                                book_id: cart[i].book_id
+                            }
+                        })
+                    }
+                    resolve(true)
+                }
+                else {
+                    resolve(false)
+                }
+            }
+            catch (err) { reject(err) }
+        })
+    }
+
+    countCart = (username) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const count = await models.carts.count({ where: { customer_username: username } })
+                resolve(count)
             }
             catch (err) { reject(err) }
         })

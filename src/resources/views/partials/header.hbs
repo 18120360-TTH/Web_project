@@ -36,7 +36,13 @@
                         <li>
                             <a href="/cart">
                                 <i class="icon-shopping-cart" width="45"></i>
-                                <span class="header-action-icon-item-count">3</span>
+                                <span class="header-action-icon-item-count">
+                                    {{#if user.cart_count}}
+                                    {{user.cart_count}}
+                                    {{else}}
+                                    0
+                                    {{/if}}
+                                </span>
                             </a>
                         </li>
                     </ul> <!-- End Header Action Icon -->

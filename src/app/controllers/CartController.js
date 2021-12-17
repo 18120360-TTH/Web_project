@@ -24,7 +24,18 @@ class CartController {
     }
 
     // [GET] /cart/checkout
-    checkout(req, res) { res.render('cart/checkout') }
+    async getCheckoutView(req, res) {
+        const result = await cartServices.getCart(req.user.username)
+
+        let books, fee
+        if (!result) {
+            books = fee = null
+        } else {
+            books = result.books
+            fee = result.fee
+        }
+        res.render('cart/checkout', { books, fee })
+    }
 
     // [POST] /cart/add-items
     async addItems(req, res) {
@@ -55,9 +66,18 @@ class CartController {
         res.redirect(backURL);
     }
 
+    // Call while login successful
     async mergeCart(req, res, next) {
         const msg = await cartServices.updateCartUser(req.user.username, req.session.unauthId)
         next()
+    }
+
+    // [POST] /cart/checkout
+    async checkout(req, res) {
+        // console.log("------------------Checkout-Info------------------")
+        // console.log(req.body)
+        const result = await cartServices.proceedCart(req.user.username, req.body)
+        res.redirect('/cart')
     }
 }
 

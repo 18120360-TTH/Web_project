@@ -1,7 +1,8 @@
 const passport = require('passport')
+const bcrypt = require('bcrypt')
 const LocalStrategy = require('passport-local').Strategy
 const authServices = require('../AuthServices')
-const bcrypt = require('bcrypt')
+const cartServices = require('../CartServices')
 
 let initPassportLocal = () => {
     passport.use(new LocalStrategy({
@@ -15,8 +16,7 @@ let initPassportLocal = () => {
             // console.log(await bcrypt.hash(password, 10))
 
             const userRecord = await authServices.findUser(username)
-
-            // console.log(userRecord)
+            userRecord.cartCount = await cartServices.countCart(username)
 
             if (userRecord && await bcrypt.compare(password, userRecord.password_hashed)) {
                 return done(null, userRecord)
@@ -38,7 +38,8 @@ passport.serializeUser((user, done) => {
     done(null, {
         username: user.username,
         avatar_url: user.avatar_url,
-        full_name: user.full_name
+        full_name: user.full_name,
+        cart_count: user.cartCount
     })
 })
 
