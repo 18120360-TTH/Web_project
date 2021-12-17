@@ -51,7 +51,6 @@ class CartServices {
                 console.log("------------------------------------")
 
                 for (let i in updateInfo) {
-                    console.log(updateInfo[i])
                     if (updateInfo[i] == 0) {
                         await models.carts.destroy({
                             where: {
@@ -61,10 +60,10 @@ class CartServices {
                         })
                     }
                     else {
+                        console.log("Book = ", i, "Quantity = ", updateInfo[i])
                         await models.carts.update(
-                            { book_quantity: updateInfo[i] },
+                            { book_quantity: parseInt(updateInfo[i]) },
                             {
-                                raw: true,
                                 where: {
                                     customer_username: userID,
                                     book_id: i
@@ -80,6 +79,64 @@ class CartServices {
         })
     }
 
+    updateCartUser = (username, unauthID) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                // Get pre-login cart  
+                const preCart = await models.carts.findAll({
+                    raw: true,
+                    where: { customer_username: unauthID }
+                })
+
+                // For each book in pre-login cart, check if it exists in post-login cart
+                for (let i in preCart) {
+                    const isExisted = await models.carts.findOne({
+                        where: {
+                            customer_username: username,
+                            book_id: preCart[i].book_id
+                        }
+                    })
+
+                    // If it exists, increment the quantity of this book
+                    if (isExisted) {
+                        await models.carts.update(
+                            { book_quantity: parseInt(preCart[i].book_quantity) + parseInt(isExisted.book_quantity) },
+                            {
+                                raw: true,
+                                where: {
+                                    customer_username: username,
+                                    book_id: preCart[i].book_id
+                                }
+                            }
+                        )
+
+                        // Delete this book in pre-login cart
+                        await models.carts.destroy({
+                            where: {
+                                customer_username: unauthID,
+                                book_id: preCart[i].book_id
+                            }
+                        })
+                    }
+                    // If it doesn't exist, change pre-login ID by username
+                    else {
+                        await models.carts.update(
+                            { customer_username: username },
+                            {
+                                raw: true,
+                                where: {
+                                    customer_username: unauthID,
+                                    book_id: preCart[i].book_id
+                                }
+                            }
+                        )
+                    }
+                }
+                resolve("Cart user update successfully!")
+            }
+            catch (err) { reject(err) }
+        })
+    }
 
     getCart = (userID) => {
         return new Promise(async (resolve, reject) => {
@@ -94,7 +151,23 @@ class CartServices {
                         include: { model: models.images, as: 'images', where: { img_order: 1 } }
                     }
                 })
-                resolve({ books: cart.rows, count: cart.count })
+
+                if (cart) {
+                    let fee = {}
+                    fee.subTotal = 0
+                    fee.itemsCount = 0
+                    for (let i in cart.rows) {
+                        fee.subTotal += cart.rows[i].total_cost
+                        fee.itemsCount += cart.rows[i].book_quantity
+                    }
+                    fee.shipping = 20000 + fee.itemsCount * 1000
+                    fee.total = fee.subTotal + fee.shipping
+
+                    resolve({ books: cart.rows, count: cart.count, fee })
+                }
+                else {
+                    resolve(null)
+                }
             }
             catch (err) { reject(err) }
         })

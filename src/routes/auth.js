@@ -1,18 +1,17 @@
 const express = require('express')
 const passport = require('passport')
 const authController = require('../app/controllers/AuthController')
+const cartController = require('../app/controllers/CartController')
 const initPassportLocal = require('../app/controllers/auth/PassportLocal')
 
 const router = express.Router()
 
 initPassportLocal()
 
-router.post('/login', function (req, res, next) {
-    console.log(req)
-    next()
-},
+router.post('/login',
     passport.authenticate('local', { failureRedirect: '/auth/login?failed=true' }),
-    authController.login
+    cartController.mergeCart,
+    authController.login,
 )
 
 router.post('/create-account', authController.create_account)

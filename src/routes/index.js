@@ -11,7 +11,6 @@ function route(app) {
         next();
     })
     app.use('/auth', authRouter)
-    // app.use(authController.authenCheck)
     app.use('/products-list', productsRouter)
     app.use('/cart', cartRouter)
     app.use('/', sitesRouter)

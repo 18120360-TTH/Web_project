@@ -4,8 +4,23 @@ const cartServices = require('./CartServices')
 class CartController {
     // [GET]  /cart
     async cart(req, res) {
-        const { books, count } = await cartServices.getCart(req.session.unauthId)
-        res.render('cart/cart', { books })
+        let cartUser
+        if (req.isAuthenticated()) {
+            cartUser = req.user.username
+        }
+        else {
+            cartUser = req.session.unauthId
+        }
+        const result = await cartServices.getCart(cartUser)
+
+        let books, fee
+        if (!result) {
+            books = fee = null
+        } else {
+            books = result.books
+            fee = result.fee
+        }
+        res.render('cart/cart', { books, fee })
     }
 
     // [GET] /cart/checkout
@@ -13,16 +28,36 @@ class CartController {
 
     // [POST] /cart/add-items
     async addItems(req, res) {
-        const msg = await cartServices.addBookToCart(req.session.unauthId, req.body)
+        let cartUser
+        if (req.isAuthenticated()) {
+            cartUser = req.user.username
+        }
+        else {
+            cartUser = req.session.unauthId
+        }
+        const msg = await cartServices.addBookToCart(cartUser, req.body)
+        console.log(msg)
         const backURL = req.header('Referer') || '/';
         res.redirect(backURL);
     }
 
     // [POST] /cart/update-items
     async updateItems(req, res) {
-        const msg = await cartServices.updateCart(req.session.unauthId, req.body)
+        let cartUser
+        if (req.isAuthenticated()) {
+            cartUser = req.user.username
+        }
+        else {
+            cartUser = req.session.unauthId
+        }
+        const msg = await cartServices.updateCart(cartUser, req.body)
         const backURL = req.header('Referer') || '/';
         res.redirect(backURL);
+    }
+
+    async mergeCart(req, res, next) {
+        const msg = await cartServices.updateCartUser(req.user.username, req.session.unauthId)
+        next()
     }
 }
 
