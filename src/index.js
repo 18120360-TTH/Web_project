@@ -1,6 +1,6 @@
 require('dotenv').config()
-const { sequelize } = require('./config/db')
-const unauthHandler = require('./app/controllers/auth/UnauthHandler')
+const { sequelize } = require('./models')
+const unauthHandler = require('./middleware/UnauthHandler')
 
 sequelize.authenticate()
   .then(() => {
@@ -42,7 +42,7 @@ sequelize.authenticate()
     // Template engine
     app.engine('hbs', handlebars({ extname: '.hbs' }));
     app.set('view engine', 'hbs');
-    app.set('views', path.join(__dirname, 'resources/views'))
+    app.set('views', path.join(__dirname, 'views'))
 
     // Handlebars register
     let hbs = handlebars.create({});

@@ -1,15 +1,13 @@
 
-const productsRouter = require('./products')
-const authRouter = require('./auth')
-const cartRouter = require('./cart')
-const errorsRouter = require('./errors')
-const sitesRouter = require('./sites')
+const productsRouter = require('./ProductsRouter')
+const authRouter = require('./AuthRouter')
+const cartRouter = require('./CartRouter')
+const errorsRouter = require('./ErrorsRouter')
+const sitesRouter = require('./SitesRouter')
+const resLocal = require('../middleware/ResLocalHandler')
 
 function route(app) {
-    app.use(function (req, res, next) {
-        res.locals.user = req.user
-        next();
-    })
+    app.use(resLocal)
     app.use('/auth', authRouter)
     app.use('/products-list', productsRouter)
     app.use('/cart', cartRouter)

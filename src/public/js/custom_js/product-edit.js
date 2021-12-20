@@ -1,5 +1,5 @@
-// const ProductServices = require("../../../app/controllers/ProductServices")
-// const authors = require("../../../app/models/authors")
+// const ProductServices = require("../../../controllers/ProductServices")
+// const authors = require("../../../models/authors")
 
 // Upload images preview
 formFileSm1.onchange = evt => {
