@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const cartController = require('../controllers/CartController')
-const authController = require('../controllers/AuthController')
+const authCheckHandler = require('../middleware/AuthCheckHandler')
 
-router.get('/checkout', authController.authenCheck, cartController.getCheckoutView)
+router.get('/checkout', authCheckHandler, cartController.getCheckoutView)
 router.get('/', cartController.cart)
 router.post('/add-items', cartController.addItems)
 router.post('/update-items', cartController.updateItems)
-router.post('/checkout', authController.authenCheck, cartController.checkout)
+router.post('/checkout', authCheckHandler, cartController.checkout)
 
 module.exports = router

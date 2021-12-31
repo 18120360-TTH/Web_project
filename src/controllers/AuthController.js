@@ -31,17 +31,6 @@ class AuthController {
     // [GET]  /password-reset
     pass_reset(req, res) { res.render('auth/password-reset') }
 
-    authenCheck(req, res, next) {
-        // console.log(req.user)
-        if (!req.isAuthenticated()) {
-            res.redirect('/auth/login')
-        } else {
-            // console.log(req.user)
-            // res.locals.user = req.user
-            next();
-        }
-    }
-
     // [POST] /create-account
     async create_account(req, res) {
         const result = await AuthServices.addNewAccount(req.body)

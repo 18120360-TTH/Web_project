@@ -100,6 +100,9 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center">
+                                {{#if search}}
+                                <input type="hidden" value="{{search}}" name="search">
+                                {{/if}}
                                 <button class="btn btn-danger" type="submit">Filter</button>
                             </div>
                         </form>
@@ -127,6 +130,9 @@
                                     <!-- Start Sort Select Option -->
                                     <div class="sort-select-list">
                                         <form method="GET" action="/products-list/product-sorted">
+                                            {{#if search}}
+                                            <input type="hidden" value="{{search}}" name="search">
+                                            {{/if}}
                                             <fieldset>
                                                 <select name="sort" id="sort" onchange="this.form.submit()">
                                                     {{#select sortStatus}}
@@ -168,7 +174,7 @@
                                                         <div class="product-img-warp">
                                                             <a href="/products-list/product-detail?ID={{book_id}}"
                                                                 class="product-default-img-link">
-                                                                <img src="{{img_url}}" alt=""
+                                                                <img src="{{[images.img_url]}}" alt=""
                                                                     class="product-default-img img-fluid">
                                                             </a>
                                                             <div class="product-action-icon-link">
@@ -202,7 +208,7 @@
                                                     <div class="product-list-single border-around">
                                                         <a href="/products-list/product-detail?ID={{book_id}}"
                                                             class="product-list-img-link">
-                                                            <img src="{{img_url}}" alt="" class="img-fluid">
+                                                            <img src="{{[images.img_url]}}" alt="" class="img-fluid">
                                                         </a>
                                                         <div class="product-list-content">
                                                             <h5 class="product-list-link"><a

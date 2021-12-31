@@ -1,5 +1,7 @@
 const { models } = require('../models/index')
 const sequelize = require('sequelize')
+const { category } = require('../controllers/ProductsController')
+const categories_of_book = require('../models/categories_of_book')
 class ProductServices {
     getAllBooks = (page) => {
         return new Promise(async (resolve, reject) => {
@@ -9,8 +11,11 @@ class ProductServices {
                     raw: true,
                     offset: offset,
                     limit: 6,
-                    where: {
-                        is_deleted: false
+                    where: { is_deleted: false },
+                    include: {
+                        model: models.images,
+                        as: 'images',
+                        where: { img_order: 1 }
                     }
                 })
                 const books = result.rows
@@ -122,14 +127,23 @@ class ProductServices {
     getBookByID = (ID) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const book = await models.books.findByPk(ID, {
+                const book = await models.books.findOne({
                     raw: true,
-                    where: { is_deleted: false }
+                    where: {
+                        book_id: ID,
+                        is_deleted: false
+                    },
+                    include: {
+                        model: models.categories_of_book,
+                        as: "categories_of_book"
+                    }
                 })
                 await models.books.update({ view_times: book.view_times + 1 }, {
                     raw: true,
                     where: { book_id: ID }
                 })
+
+                console.log(book)
                 resolve(book)
             }
             catch (err) {
@@ -153,11 +167,11 @@ class ProductServices {
                             as: "categories_of_book",
                             where: { category: category }
                         },
-                        // {
-                        //     model: models.images,
-                        //     as: 'images',
-                        //     where: { img_order: 1 }
-                        // }
+                        {
+                            model: models.images,
+                            as: 'images',
+                            where: { img_order: 1 }
+                        }
                     ]
                 })
 
@@ -182,7 +196,12 @@ class ProductServices {
                     raw: true,
                     offset: offset,
                     limit: 6,
-                    where: { is_deleted: false }
+                    where: { is_deleted: false },
+                    include: [{
+                        model: models.images,
+                        as: 'images',
+                        where: { img_order: 1 }
+                    }]
                 }
 
                 // If any attribute is not equal to default value, add it to where clause
@@ -196,11 +215,15 @@ class ProductServices {
 
                 // If author attribute is dedicated, add it to include clause
                 if (query.author != "all") {
-                    optionQuery.include = [{
+                    optionQuery.include[1] = {
                         model: models.authors,
                         as: "authors",
                         where: { author_name: query.author }
-                    }]
+                    }
+                }
+
+                if (query.search) {
+                    optionQuery.where.title = { [sequelize.Op.substring]: query.search }
                 }
 
                 // Query to the database
@@ -224,10 +247,11 @@ class ProductServices {
                     raw: true,
                     offset: offset,
                     limit: 6,
-                    where: {
-                        title: {
-                            [sequelize.Op.substring]: keyword
-                        }
+                    where: { title: { [sequelize.Op.substring]: keyword } },
+                    include: {
+                        model: models.images,
+                        as: 'images',
+                        where: { img_order: 1 }
                     }
                 })
 
@@ -242,87 +266,97 @@ class ProductServices {
         })
     }
 
-    getAdSearchedBooks(keywords, page, limit) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                let searchClause = {
-                    raw: true,
-                    offset: (page - 1) * limit,
-                    limit: limit,
-                    where: { is_deleted: false }
-                }
-                if (keywords.title) {
-                    searchClause.where.title = {
-                        [sequelize.Op.substring]: keywords.title
-                    }
-                }
-                if (keywords.publisher) {
-                    searchClause.where.publisher = {
-                        [sequelize.Op.substring]: keywords.publisher
-                    }
-                }
-                if (keywords.author) {
-                    searchClause.include = {
-                        model: models.authors,
-                        as: 'authors',
-                        where: { author_name: { [sequelize.Op.substring]: keywords.author } }
-                    }
-                }
-                if (keywords.old_year && keywords.new_year) {
-                    searchClause.where.release_year = {
-                        [sequelize.Op.between]: [keywords.old_year, keywords.new_year]
-                    }
-                }
+    // getAdSearchedBooks(keywords, page, limit) {
+    //     return new Promise(async (resolve, reject) => {
+    //         try {
+    //             let searchClause = {
+    //                 raw: true,
+    //                 offset: (page - 1) * limit,
+    //                 limit: limit,
+    //                 where: { is_deleted: false },
+    //                 include: {
+    //                     model: models.images,
+    //                     as: 'images',
+    //                     where: { img_order: 1 }
+    //                 }
+    //             }
+    //             if (keywords.title) {
+    //                 searchClause.where.title = {
+    //                     [sequelize.Op.substring]: keywords.title
+    //                 }
+    //             }
+    //             if (keywords.publisher) {
+    //                 searchClause.where.publisher = {
+    //                     [sequelize.Op.substring]: keywords.publisher
+    //                 }
+    //             }
+    //             if (keywords.author) {
+    //                 searchClause.include = {
+    //                     model: models.authors,
+    //                     as: 'authors',
+    //                     where: { author_name: { [sequelize.Op.substring]: keywords.author } }
+    //                 }
+    //             }
+    //             if (keywords.old_year && keywords.new_year) {
+    //                 searchClause.where.release_year = {
+    //                     [sequelize.Op.between]: [keywords.old_year, keywords.new_year]
+    //                 }
+    //             }
 
-                const result = await models.books.findAndCountAll(searchClause)
+    //             const result = await models.books.findAndCountAll(searchClause)
 
-                resolve({ searchedBooks: result.rows, count: result.count })
-            }
-            catch (err) { reject(err) }
-        })
-    }
+    //             resolve({ searchedBooks: result.rows, count: result.count })
+    //         }
+    //         catch (err) { reject(err) }
+    //     })
+    // }
 
-    getSortedBooks(sort, page) {
+    getSortedBooks(query, page) {
         return new Promise(async (resolve, reject) => {
             try {
                 const offset = (page - 1) * 6
 
                 let orderClause = {}
-                if (sort == "title_a") {
+                if (query.sort == "title_a") {
                     orderClause = [['title', 'ASC']]
                 }
-                else if (sort == "title_z") {
+                else if (query.sort == "title_z") {
                     orderClause = [['title', 'DESC']]
                 }
-                else if (sort == "best_sell") {
+                else if (query.sort == "best_sell") {
                     orderClause = [['sold', 'DESC']]
                 }
-                else if (sort == "most_view") {
+                else if (query.sort == "most_view") {
                     orderClause = [['view_times', 'DESC']]
                 }
-                else if (sort == "released_year") {
+                else if (query.sort == "released_year") {
                     orderClause = [['release_year', 'DESC']]
                 }
-                else if (sort == "low_price") {
+                else if (query.sort == "low_price") {
                     orderClause = [['price', 'ASC']]
                 }
-                else if (sort == "high_price") {
+                else if (query.sort == "high_price") {
                     orderClause = [['price', 'DESC']]
                 }
+
+                let whereClause = {}
+                if (query.search) { whereClause.title = { [sequelize.Op.substring]: query.search } }
 
                 const result = await models.books.findAndCountAll({
                     raw: true,
                     offset: offset,
                     limit: 6,
-                    order: orderClause
+                    order: orderClause,
+                    where: whereClause,
+                    include: {
+                        model: models.images,
+                        as: 'images',
+                        where: { img_order: 1 }
+                    }
                 })
 
                 const sortedBooks = result.rows
                 const count = result.count
-
-                // console.log("-------------------------------------")
-                // console.log(sortedBooks)
-                // console.log("-------------------------------------")
 
                 resolve({ sortedBooks, count })
             }
