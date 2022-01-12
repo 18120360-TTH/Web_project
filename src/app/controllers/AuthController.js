@@ -48,6 +48,8 @@ class AuthController {
         const result = await AuthServices.addNewAccount(req.body)
         res.redirect('/auth/login')
     }
+
+    
 }
 
 module.exports = new AuthController
