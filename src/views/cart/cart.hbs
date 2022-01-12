@@ -1,0 +1,132 @@
+<body>
+    <!-- ...:::: Start Breadcrumb Section:::... -->
+    <div class="breadcrumb-section">
+        <div class="breadcrumb-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div
+                        class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
+                        <h3 class="breadcrumb-title">Cart</h3>
+                        <div class="breadcrumb-nav">
+                            <nav aria-label="breadcrumb">
+                                <ul>
+                                    <li><a href="/">Home</a></li>
+                                    <li class="active" aria-current="page">Cart</li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- ...:::: End Breadcrumb Section:::... -->
+
+    <!-- ...:::: Start Cart Section:::... -->
+    <div class="cart-section">
+        <!-- Start Cart Table -->
+        <div class="cart-table-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <form class="table_desc" method="POST" action="/cart/update-items">
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <!-- Start Cart Table Head -->
+                                    <thead>
+                                        <tr>
+                                            <th class="product_remove">Delete</th>
+                                            <th class="product_thumb">Image</th>
+                                            <th class="product_name">Product</th>
+                                            <th class="product-price">Price</th>
+                                            <th class="product_quantity">Quantity</th>
+                                            <th class="product_total">Total</th>
+                                        </tr>
+                                    </thead> <!-- End Cart Table Head -->
+                                    <tbody>
+                                        {{#if books}}
+                                        {{#each books}}
+                                        <tr id="book_{{book_id}}">
+                                            <td class="product_remove">
+                                                <a href="" onclick="return deleteCart({{book_id}});"><i
+                                                        class="fa fa-trash-o"></i></a>
+                                            </td>
+                                            <td class="product_thumb"><a href="/products-list/product-detail"><img
+                                                        src="{{[book.images.img_url]}}" alt=""></a></td>
+                                            <td class="product_name">
+                                                <a href="/products-list/product-detail?ID={{book_id}}">
+                                                    {{[book.title]}}
+                                                </a>
+                                            </td>
+                                            <td>{{[book.price]}} đ</td>
+                                            <td class="product_quantity"><label>Quantity</label> <input
+                                                    id="quantity_{{book_id}}" min="0" max="{{[book.quantity_in_stock]}}"
+                                                    value="{{book_quantity}}" type="number" name="{{book_id}}"></td>
+                                            <td class="product-price text-danger">{{total_cost}} đ</td>
+                                        </tr>
+                                        {{/each}}
+                                        {{else}}
+                                        <tr>
+                                            <td colspan="6" class="text-center">There are no items in your cart! <a
+                                                    href="/products-list">Shopping now!</a></td>
+                                        </tr>
+                                        {{/if}}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {{#if books}}
+                            <div class="cart_submit">
+                                <button type="submit">update cart</button>
+                            </div>
+                            {{/if}}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Cart Table -->
+
+        <!-- Start Coupon Start -->
+        {{#if books}}
+        <div class="coupon_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="coupon_code left">
+                            <h3>Coupon</h3>
+                            <div class="coupon_inner">
+                                <p>Enter your coupon code if you have one.</p>
+                                <input placeholder="Coupon code" type="text">
+                                <button type="submit">Apply coupon</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="coupon_code right">
+                            <h3>Cart Totals</h3>
+                            <div class="coupon_inner">
+                                <div class="cart_subtotal">
+                                    <p>Subtotal</p>
+                                    <p class="cart_amount">{{fee.subTotal}} đ</p>
+                                </div>
+                                <div class="cart_subtotal ">
+                                    <p>Shipping (22.000 + {{fee.itemsCount}} * 1000)</p>
+                                    <p class="cart_amount">{{fee.shipping}} đ</p>
+                                </div>
+                                <a></a>
+
+                                <div class="cart_subtotal">
+                                    <p>Total</p>
+                                    <p class="cart_amount">{{fee.total}} đ</p>
+                                </div>
+                                <div class="checkout_btn">
+                                    <a href="/cart/checkout">Proceed to Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Coupon Start -->
+        {{/if}}
+    </div> <!-- ...:::: End Cart Section:::... -->
+</body>
+<script type="text/javascript" src="/js/custom_js/cart-delete.js"></script>

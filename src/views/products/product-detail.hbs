@@ -1,0 +1,378 @@
+<body>
+    <!-- ...:::: Start Breadcrumb Section:::... -->
+    <div class="breadcrumb-section">
+        <div class="breadcrumb-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div
+                        class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
+                        <h3 class="breadcrumb-title">Product Details</h3>
+                        <div class="breadcrumb-nav">
+                            <nav aria-label="breadcrumb">
+                                <ul>
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="/products-list">Shop</a></li>
+                                    <li class="active" aria-current="page">Product Details</li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- ...:::: End Breadcrumb Section:::... -->
+
+    <!-- Start Product Details Section -->
+    <div class="product-details-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="product-details-gallery-area d-flex align-items-center flex-row-reverse">
+                        <div class="product-large-image product-large-image-vertical ml-15">
+                            <div class="product-image-large-single zoom-image-hover">
+                                <img src="{{bookByID.img_1}}" alt="">
+                            </div>
+                            <div class="product-image-large-single zoom-image-hover">
+                                <img src="{{bookByID.img_2}}" alt="">
+                            </div>
+                            <div class="product-image-large-single zoom-image-hover">
+                                <img src="{{bookByID.img_3}}" alt="">
+                            </div>
+                            <div class="product-image-large-single zoom-image-hover">
+                                <img src="{{bookByID.img_4}}" alt="">
+                            </div>
+                        </div>
+                        <div class="product-image-thumb product-image-thumb-vertical pos-relative">
+                            <div class="zoom-active product-image-thumb-single">
+                                <img class="img-fluid" src="{{bookByID.img_1}}" alt="">
+                            </div>
+                            <div class="zoom-active product-image-thumb-single">
+                                <img class="img-fluid" src="{{bookByID.img_2}}" alt="">
+                            </div>
+                            <div class="zoom-active product-image-thumb-single">
+                                <img class="img-fluid" src="{{bookByID.img_3}}" alt="">
+                            </div>
+                            <div class="zoom-active product-image-thumb-single">
+                                <img class="img-fluid" src="{{bookByID.img_4}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-details-content-area">
+                        <!-- Start  Product Details Text Area-->
+                        <div class="product-details-text">
+                            <h4 class="title">{{bookByID.title}}</h4>
+                            <div class="d-flex align-items-center">
+
+                                <div class="product-review mr-4">
+                                    <span>Rating: </span>
+                                    <span class="review-fill"><i class="fa fa-star"></i></span>
+                                    <span class="review-fill"><i class="fa fa-star"></i></span>
+                                    <span class="review-fill"><i class="fa fa-star"></i></span>
+                                    <span class="review-fill"><i class="fa fa-star"></i></span>
+                                    <span class="review-empty"><i class="fa fa-star"></i></span>
+                                </div>
+                                <div class="product-review mr-4">
+                                    <span>View: {{bookByID.view_times}}</span>
+                                </div>
+                                <div class="product-review">
+                                    <span>Sold: {{bookByID.sold}}</span>
+                                </div>
+                            </div>
+                            <div class="price"><del>{{bookByID.origin_price}}đ</del>${{bookByID.price}}đ</div>
+                            <p>{{bookByID.description}}</p>
+                        </div> <!-- End  Product Details Text Area-->
+                        <!-- Start Product Variable Area -->
+                        <div class="product-details-variable">
+                            <h6 class="title">Available in stock:
+                                <span class="text-danger">{{bookByID.quantity_in_stock}}</span>
+                            </h6>
+                            <!-- Product Variable Single Item -->
+                            <form class="d-flex align-items-center" method="POST" action="/cart/add-items">
+                                <div class="variable-single-item ">
+                                    <span>Quantity</span>
+                                    <div class="product-variable-quantity">
+                                        <input type="hidden" value={{bookByID.book_id}} name="book_id">
+                                        <input min="1" max="{{bookByID.quantity_in_stock}}" value="1" type="number"
+                                            name="quantity">
+                                    </div>
+                                </div>
+
+                                <div class="product-add-to-cart-btn">
+                                    <button class="btn text-white" type="submit"><a>Add To Cart</a></button>
+                                </div>
+                            </form>
+                        </div> <!-- End Product Variable Area -->
+
+                        <!-- Start  Product Details Social Area-->
+                        <div class="product-details-social">
+                            <ul>
+                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i>Like</a></li>
+                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i>Tweet</a></li>
+                                <li><a href="#" class="pinterest"><i class="fa fa-pinterest"></i>Save</a></li>
+                                <li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i>Save</a></li>
+                                <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i>Linked</a></li>
+                            </ul>
+                        </div> <!-- End  Product Details Social Area-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Product Details Section -->
+
+    <!-- Start Product Content Tab Section -->
+    <div class="product-details-content-tab-section section-inner-bg section-top-gap-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="product-details-content-tab-wrapper">
+
+                        <!-- Start Product Details Tab Button -->
+                        <ul class="nav tablist product-details-content-tab-btn d-flex justify-content-center">
+                            <li><a class="nav-link active" data-toggle="tab" href="#description">
+                                    <h5>Description</h5>
+                                </a></li>
+                            <li><a class="nav-link" data-toggle="tab" href="#specification">
+                                    <h5>Specification</h5>
+                                </a></li>
+                            <li><a class="nav-link" data-toggle="tab" href="#review">
+                                    <h5>Reviews ({{bookReviews.count}})</h5>
+                                </a></li>
+                        </ul> <!-- End Product Details Tab Button -->
+
+                        <!-- Start Product Details Tab Content -->
+                        <div class="product-details-content-tab">
+                            <div class="tab-content">
+                                <!-- Start Product Details Tab Content Singel -->
+                                <div class="tab-pane active show" id="description">
+                                    <div class="single-tab-content-item">
+                                        <p>{{bookByID.description}}</p>
+                                    </div>
+                                </div> <!-- End Product Details Tab Content Singel -->
+                                <!-- Start Product Details Tab Content Singel -->
+                                <div class="tab-pane" id="specification">
+                                    <div class="single-tab-content-item">
+                                        <table class="table table-bordered mb-20">
+                                            <tbody>
+                                                <tr>
+                                                    <th class="col-2" scope="row">ISBN</th>
+                                                    <td class="col-4">{{bookByID.ISBN}}</td>
+                                                    <th class="col-2" scope="row">Author</th>
+                                                    <td class="col-4">{{bookByID.authors}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Publisher</th>
+                                                    <td>{{bookByID.publisher}}</td>
+                                                    <th scope="row">Number of Pages</th>
+                                                    <td>{{bookByID.number_of_pages}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Release year</th>
+                                                    <td>{{bookByID.release_year}}</td>
+                                                    <th scope="row">Language</th>
+                                                    <td>{{bookByID.language}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="review">
+                                    <div class="single-tab-content-item">
+                                        {{#if bookReviews.rows}}
+                                        <ul class="comment">
+                                            {{#each bookReviews.rows}}
+                                            <li class="comment-list">
+                                                <div class="comment-content">
+                                                    <div class="comment-content-top col-12">
+                                                        <div class="comment-content-left">
+                                                            <h6 class="comment-name">{{customer_username}}</h6>
+                                                            <span>({{review_date}})</span>
+                                                        </div>
+                                                        <div class="comment-content-right">
+                                                            <div class="product-review">
+                                                                {{#renderStars rating}}
+                                                                <span class="review-fill"><i
+                                                                        class="fa fa-star"></i></span>
+                                                                <span class="review-fill"><i
+                                                                        class="fa fa-star"></i></span>
+                                                                <span class="review-fill"><i
+                                                                        class="fa fa-star"></i></span>
+                                                                <span class="review-fill"><i
+                                                                        class="fa fa-star"></i></span>
+                                                                <span class="review-empty"><i
+                                                                        class="fa fa-star"></i></span>
+                                                                {{/renderStars}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="para-content">
+                                                        <p>{{comment}}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            {{/each}}
+                                        </ul> <!-- End - Review Comment -->
+                                        <div class="page-pagination text-center">
+                                            <ul>
+                                                {{#if isPreValid}}
+                                                <li><a class="btn" role="button" href="{{path}}1">First</a></li>
+                                                <li><a class="btn" role="button"
+                                                        href="{{path}}{{prePage}}">{{prePage}}</a>
+                                                </li>
+                                                {{else}}
+                                                <li><a class="btn disabled" role="button" href="{{path}}1">First</a>
+                                                </li>
+                                                {{!-- <li><a class="btn disabled" role="button"
+                                                        href="{{path}}{{prePage}}">Previous</a></li> --}}
+                                                {{/if}}
+
+                                                <li><a class="btn active" role="button">{{page}}</a></li>
+
+                                                {{#if isNextValid}}
+                                                <li><a class="btn" role="button"
+                                                        href="{{path}}{{nextPage}}">{{nextPage}}</a>
+                                                </li>
+                                                <li><a class="btn" role="button" href="{{path}}{{lastPage}}">Last</a>
+                                                </li>
+                                                {{else}}
+                                                {{!-- <li><a class="btn disabled" role="button"
+                                                        href="{{path}}{{nextPage}}">Next</a>
+                                                </li> --}}
+                                                <li><a class="btn disabled" role="button"
+                                                        href="{{path}}{{lastPage}}">Last</a>
+                                                </li>
+                                                {{/if}}
+                                            </ul>
+                                        </div>
+                                        {{else}}
+                                        <div class="text-center mb-">This book has no reviews yet!</div>
+                                        {{/if}}
+                                        <div class="review-form">
+                                            <div class="review-form-text-top">
+                                                <h5>ADD A REVIEW</h5>
+                                                <p>Your email address will not be published. Required fields
+                                                    are marked
+                                                    *</p>
+                                            </div>
+
+                                            <form method="POST">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="default-form-box mb-20">
+                                                            <label for="comment-name">Your name
+                                                                <span>*</span></label>
+                                                            {{#if user}}
+                                                            <input id="comment-name" type="text" name="name"
+                                                                placeholder="Enter your name" value="{{user.username}}"
+                                                                readonly>
+                                                            {{else}}
+                                                            <input id="comment-name" type="text" name="name"
+                                                                placeholder="Enter your name" required>
+                                                            {{/if}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="default-form-box mb-20">
+                                                            <label for="comment-rating">Rating
+                                                                <span>*</span></label>
+                                                            <div
+                                                                class="rate d-flex align-items-center flex-row-reverse">
+                                                                <input type="radio" id="star5" name="rate"
+                                                                    value="5_star" />
+                                                                <label for="star5" title="text">5 stars</label>
+                                                                <input type="radio" id="star4" name="rate"
+                                                                    value="4_star" />
+                                                                <label for="star4" title="text">4 stars</label>
+                                                                <input type="radio" id="star3" name="rate"
+                                                                    value="3_star" checked />
+                                                                <label for="star3" title="text">3 stars</label>
+                                                                <input type="radio" id="star2" name="rate"
+                                                                    value="2_star" />
+                                                                <label for="star2" title="text">2 stars</label>
+                                                                <input type="radio" id="star1" name="rate"
+                                                                    value="1_star" />
+                                                                <label for="star1" title="text">1 star</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="default-form-box mb-20">
+                                                            <label for="comment-review-text">Your review
+                                                                <span>*</span></label>
+                                                            <textarea id="comment-review-text" name="comment"
+                                                                placeholder="Write a review" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <button class="form-submit-btn" type="submit">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> <!-- End Product Details Tab Content Singel -->
+                            </div>
+                        </div> <!-- End Product Details Tab Content -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Product Content Tab Section -->
+
+    <!-- ...:::: Start Product  Section:::... -->
+    <div class="product-section section-top-gap-100">
+        <!-- Start Section Content -->
+        <div class="section-content-gap">
+            <div class="container">
+                <div class="row">
+                    <div class="section-content">
+                        <h3 class="section-title">Related Products</h3>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Section Content -->
+
+        <!-- Start Product Wrapper -->
+        <div class="product-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="product-default-slider product-default-slider-4grids-1row">
+                            <!-- Start Product Defautlt Single -->
+                            {{#each relatedBooks}}
+                            <div class="product-default-single border-around">
+                                <div class="product-img-warp">
+                                    <a href="/products-list/product-detail?ID={{book_id}}"
+                                        class="product-default-img-link">
+                                        <img src="{{[images.img_url]}}" alt="" class="product-default-img img-fluid">
+                                    </a>
+                                    <div class="product-action-icon-link">
+                                        <ul>
+                                            <li>
+                                                <a href="#" data-toggle="modal" data-target="#modalAddcart"><i
+                                                        class="icon-shopping-cart"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-default-content">
+                                    <h6 class="product-default-link"><a
+                                            href="/products-list/product-detail">{{book_title}}</a></h6>
+                                    <span class="product-default-price"><del
+                                            class="product-default-price-off">${{origin_price}}</del> ${{price}}</span>
+                                </div>
+                            </div> <!-- End Product Defautlt Single -->
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Product Wrapper -->
+    </div> <!-- ...:::: End Product Section:::... -->
+</body>

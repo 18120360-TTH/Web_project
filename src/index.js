@@ -1,5 +1,6 @@
 require('dotenv').config()
-const { sequelize } = require('./config/db')
+const { sequelize } = require('./models')
+const unauthHandler = require('./middleware/UnauthHandler')
 
 sequelize.authenticate()
   .then(() => {
@@ -32,9 +33,7 @@ sequelize.authenticate()
     // Authentication init
     app.use(session({
       secret: 'my_secret',
-      // resave: false,
-      // saveUninitialized: true,
-      // cookie: { secure: true }
+      cookie: { maxAge: 1000 * 60 * 60 * 24 }
     }))
     app.use(passport.initialize())
     app.use(passport.session())
@@ -43,7 +42,7 @@ sequelize.authenticate()
     // Template engine
     app.engine('hbs', handlebars({ extname: '.hbs' }));
     app.set('view engine', 'hbs');
-    app.set('views', path.join(__dirname, 'resources/views'))
+    app.set('views', path.join(__dirname, 'views'))
 
     // Handlebars register
     let hbs = handlebars.create({});
@@ -62,6 +61,8 @@ sequelize.authenticate()
       }
       return new hbs.handlebars.SafeString(result);
     });
+
+    app.use(unauthHandler)
 
     // Routes init
     route(app)

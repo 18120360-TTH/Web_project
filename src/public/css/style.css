@@ -18090,3 +18090,10 @@ Layout - Footer
 .rate > label:hover ~ input:checked ~ label {
   color: #c59b08;
 }
+
+.hide {
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    visibility: hidden !important;
+}
