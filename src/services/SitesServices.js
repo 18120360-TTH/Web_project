@@ -29,20 +29,22 @@ class SitesServices {
         })
     }
 
-    // randomBook = (category) => {
-    //     return new Promise(async (resolve, reject) => {
-    //         try {
-    //             const books = await models.books.findAndCountAll({
-    //                 raw: true,
-    //                 limit: 4,
-    //                 where: { is_deleted: false }
-    //             })
+    getOrdersByUser = (username) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const result = await models.orders.findAndCountAll({
+                    raw: true,
+                    where: { customer_username: username }
+                })
+                for (let i in result.rows) {
+                    result.rows[i].order_date = result.rows[i].order_date.toDateString()
+                }
 
-    //             resolve(books)
-    //         }
-    //         catch (err) { reject(err) }
-    //     })
-    // }
+                resolve(result.rows)
+            }
+            catch (err) { reject(err) }
+        })
+    }
 }
 
 module.exports = new SitesServices

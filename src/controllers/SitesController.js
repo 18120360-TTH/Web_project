@@ -3,6 +3,7 @@ const path = require('path')
 const { resourceLimits } = require('worker_threads')
 const authServices = require('../services/AuthServices')
 const productServices = require('../services/ProductServices')
+const sitesServices = require('../services/SitesServices')
 
 class SitesController {
     // [GET]  /
@@ -29,7 +30,8 @@ class SitesController {
     // [GET] /my-account
     async my_account(req, res) {
         const userInfo = await authServices.findUser(req.user.username)
-        res.render('sites/my-account', { userInfo })
+        const orders = await sitesServices.getOrdersByUser(req.user.username)
+        res.render('sites/my-account', { userInfo, orders })
     }
 
     // [POST] /my-account/profile-update

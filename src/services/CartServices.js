@@ -210,6 +210,12 @@ class CartServices {
                             book_id: cart[i].book_id,
                             items_quantity: cart[i].book_quantity
                         })
+
+                        await models.books.increment(
+                            { quantity_in_stock: -cart[i].book_quantity },
+                            { where: { book_id: cart[i].book_id } }
+                        )
+
                         await models.carts.destroy({
                             where: {
                                 customer_username: username,
