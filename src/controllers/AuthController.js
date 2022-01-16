@@ -1,4 +1,9 @@
 const AuthServices = require('../services/AuthServices')
+const SendMailHandler = require('../middleware/SendMailHandler')
+const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer')
+
+JWT_KEY ='aiHQIfnb62JIFBEW!FioqwebeJCasd3!fj%3nfdhbDFdnsddf0yyeMMsdcG'
 
 class AuthController {
     // [GET]  /login
@@ -34,7 +39,20 @@ class AuthController {
     // [POST] /create-account
     async create_account(req, res) {
         const result = await AuthServices.addNewAccount(req.body)
-        res.redirect('/auth/login')
+        
+        //send confirm mail
+        const username = req.body.username 
+        const user_email = req.body.email
+        let token = jwt.sign({username},JWT_KEY,{expiresIn: '1d'})
+        const verify_url = process.env.DEPLOY_ENV + `/confirmation/${token}`;
+
+        SendMailHandler({
+            to: user_email,
+            subject: 'Confirm Email',
+            html: `Please click this email to confirm your email: <a href="${verify_url}">${verify_url}</a>`,
+        });
+        
+        res.redirect('/verify-email')
     }
 
     

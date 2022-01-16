@@ -62,6 +62,7 @@ sequelize.authenticate()
       return new hbs.handlebars.SafeString(result);
     });
 
+
     app.use(unauthHandler)
 
     // Routes init
