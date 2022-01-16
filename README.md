@@ -15,7 +15,7 @@
 - [ ] Hosting code
 
 ### Thêm các biến môi trường sau vào file ".env" trước khi chạy:  
-EMAIL_USER=<tài khoản gmail> (ex: EMAIL_USER=abc@gmail.com)
-EMAIL_PASS=<password của tài khoản gmail trên> (ex: EMAIL_PASS=123456)
+EMAIL_USER=webprojecthcmus@gmail.com
+EMAIL_PASS=18hcmus!
 
 DEPLOY_ENV=http://localhost:3000
