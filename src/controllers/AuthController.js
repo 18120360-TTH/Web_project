@@ -1,8 +1,7 @@
 const AuthServices = require('../services/AuthServices')
 const SendMailHandler = require('../middleware/SendMailHandler')
 const jwt = require('jsonwebtoken')
-const nodemailer = require('nodemailer')
-const { token } = require('morgan')
+//const { token } = require('morgan')
 
 JWT_KEY ='aiHQIfnb62JIFBEW!FioqwebeJCasd3!fj%3nfdhbDFdnsddf0yyeMMsdcG'
 
@@ -67,8 +66,6 @@ class AuthController {
 
             res.redirect('/auth/login')
         }
-      
-        
         res.redirect('/auth/password-recovery/'+ req.body.token) */
 
         try {
@@ -84,6 +81,19 @@ class AuthController {
 
     // [GET]  /password-reset
     pass_reset(req, res) { res.render('auth/password-reset') }
+
+    //[POST] /reset-password
+    async reset_password(req,res){
+        let msg = ""
+        if(req.body.password.localeCompare(req.body.password_rep) === 0){ //compare password == repeated_password
+            //const isReset = await AuthServices.updatePassword(req.body.username,req.body.password)
+
+            res.redirect('/my-account')
+        }else{
+            msg = "New password and repeat password do not match"
+            res.render('auth/password-reset',{msg})
+        }
+    }
 
     // [POST] /create-account
     async create_account(req, res) {

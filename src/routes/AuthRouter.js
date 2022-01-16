@@ -27,6 +27,7 @@ router.get('/password-recovery/:token', authController.password_recovery)
 
 
 router.use(authCheckHandler)
+router.post('/reset-password', authController.reset_password)
 router.get('/logout', authController.logout)
 router.get('/password-reset', authController.pass_reset)
 
