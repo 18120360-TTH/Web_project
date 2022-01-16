@@ -18,7 +18,7 @@ sequelize.authenticate()
     const route = require('./routes')
 
     const app = express()
-    const port = 3000
+    const PORT = process.env.PORT || 3000; //PORT to deploy in heroku
 
     // Static file
     app.use(express.static(path.join(__dirname, 'public')))
@@ -72,15 +72,19 @@ sequelize.authenticate()
       }
     });
 
+
     app.use(unauthHandler)
 
     // Routes init
     route(app)
 
-    app.listen(port, () => {
+    /* app.listen(port, () => {
       console.log(`Example app listening at http://localhost:${port}`)
-    })
-
+    }) */
+    
+    app.listen(PORT, () => {
+      console.log(`Our app is running on port ${ PORT }`);
+    });
   })
   .catch(error => {
     console.error('Unable to connect to the database:', error);

@@ -45,6 +45,19 @@ class SitesServices {
             catch (err) { reject(err) }
         })
     }
+
+    confirmEmail = (username) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const result = await models.users.update({
+                    verify_email: 1
+                }, { where: { username: username } });
+
+                resolve(result)
+            }
+            catch (err) { reject(err) }
+        })
+    }
 }
 
 module.exports = new SitesServices

@@ -1,5 +1,6 @@
 const multer = require('multer')
 const path = require('path')
+const jwt = require('jsonwebtoken')
 const { resourceLimits } = require('worker_threads')
 const authServices = require('../services/AuthServices')
 const productServices = require('../services/ProductServices')
@@ -53,6 +54,25 @@ class SitesController {
 
         res.redirect('/my-account')
     }
+
+    //[GET] /verify-email
+    verifyEmailNotify(req, res) { res.render('sites/verify-email') }
+    
+    //[GET] /confirmation/:token
+    async active_account(req,res){
+        const token = req.params.token
+        try {
+            const decoded = jwt.verify(token, JWT_KEY);
+            const isVerify = sitesServices.confirmEmail(decoded.username)
+            
+        } catch(err) {
+            console.log(err)
+            }
+
+        res.redirect('/auth/login')     
+    }
+
+
 }
 
 module.exports = new SitesController

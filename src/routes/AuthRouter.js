@@ -25,4 +25,5 @@ router.get('/logout', authController.logout)
 router.get('/password-recovery', authController.pass_recover)
 router.get('/password-reset', authController.pass_reset)
 
+
 module.exports = router
