@@ -16,13 +16,18 @@ router.post('/login',
 )
 
 router.post('/create-account', authController.create_account)
+router.post('/info-to-recover', authController.send_mail_recover_password)
+router.post('/recover-password', authController.recover_password)
 
 router.get('/login', authController.loginView)
 router.get('/signup', authController.signup)
+router.get('/password-recovery-request', authController.pass_recover_request)
+router.get('/password-recover-notify',authController.password_recover_notify)
+router.get('/password-recovery/:token', authController.password_recovery)
+
 
 router.use(authCheckHandler)
 router.get('/logout', authController.logout)
-router.get('/password-recovery', authController.pass_recover)
 router.get('/password-reset', authController.pass_reset)
 
 

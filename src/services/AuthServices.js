@@ -41,6 +41,20 @@ class AuthServices {
             catch (err) { reject(err) }
         })
     }
+
+
+    updatePassword = (username, password) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const result = await models.users.update({
+                    password_hashed: bcrypt.hashSync(password, 10),
+                }, { where: { username: username } });
+
+                resolve(result)
+            }
+            catch (err) { reject(err) }
+        })
+    }
 }
 
 module.exports = new AuthServices
