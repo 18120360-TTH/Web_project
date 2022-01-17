@@ -30,6 +30,11 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="account_form">
                         <h3>login</h3>
+                        {{#if err}}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong class="ml-3">Error: </strong>{{err}}
+                        </div>
+                        {{/if}}
                         <form method="POST" action="/auth/login">
                             <div class="default-form-box mb-20">
                                 <label>Username <span>*</span></label>

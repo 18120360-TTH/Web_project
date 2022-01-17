@@ -19,7 +19,11 @@ let initPassportLocal = () => {
             userRecord.cartCount = await cartServices.countCart(username)
 
             if (userRecord && await bcrypt.compare(password, userRecord.password_hashed)) {
-                return done(null, userRecord)
+                if (userRecord.active != 1 || userRecord.verify_email != 1) {
+                    return done(null, false)
+                } else {
+                    return done(null, userRecord)
+                }
             } else {
                 return done(null, false)
             }

@@ -30,6 +30,11 @@
                 <div class="col-lg-8 col-md-8">
                     <div class="account_form register">
                         <h3>Register</h3>
+                        {{#if err}}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong class="ml-3">Error: </strong>{{err}}
+                        </div>
+                        {{/if}}
                         <form method="POST" action="/auth/create-account">
                             <div class="d-flex justify-content-between">
                                 <div class="default-form-box col-lg-6 mb-20 form form-group">

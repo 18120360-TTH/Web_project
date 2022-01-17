@@ -24,6 +24,12 @@ class AuthServices {
     addNewAccount = (accountInfo) => {
         return new Promise(async (resolve, reject) => {
             try {
+                if (await models.users.findByPk(accountInfo.username) != null) {
+                    resolve(-1)
+                } else if (accountInfo.password != accountInfo.password_rep) {
+                    resolve(-2)
+                }
+
                 const result = await models.users.create({
                     username: accountInfo.username,
                     password_hashed: bcrypt.hashSync(accountInfo.password, 10),
