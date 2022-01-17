@@ -35,7 +35,7 @@ class AuthServices {
                     password_hashed: bcrypt.hashSync(accountInfo.password, 10),
                     full_name: (accountInfo.firstname + " " + accountInfo.lastname),
                     email: accountInfo.email,
-                    avatar_url: '/images/avatars/person-0.png',
+                    avatar_url: '/images/users/avatar-0.png',
                     address: (accountInfo.address),
                     role: "Customer",
                     active: 1,

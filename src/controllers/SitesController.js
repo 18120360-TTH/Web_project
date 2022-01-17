@@ -39,7 +39,7 @@ class SitesController {
     async updateProfile(req, res) {
         const storage = multer.diskStorage({
             destination: function (req, file, callback) {
-                callback(null, path.join(__dirname, '../../public/images/users'))
+                callback(null, path.join(__dirname, '../public/images/users'))
             },
             filename: function (req, file, callback) {
                 callback(null, req.user.username + '_' + Date.now() + path.extname(file.originalname))
@@ -49,6 +49,7 @@ class SitesController {
         const upload = multer({ storage: storage }).single('avatar')
 
         upload(req, res, async function (err) {
+            console.log(req.file)
             await sitesServices.updateProfile(req.user.username, req.body, req.file)
         })
 
@@ -57,19 +58,19 @@ class SitesController {
 
     //[GET] /verify-email
     verifyEmailNotify(req, res) { res.render('sites/verify-email') }
-    
+
     //[GET] /confirmation/:token
-    async active_account(req,res){
+    async active_account(req, res) {
         const token = req.params.token
         try {
             const decoded = jwt.verify(token, JWT_KEY);
             const isVerify = sitesServices.confirmEmail(decoded.username)
-            
-        } catch(err) {
-            console.log(err)
-            }
 
-        res.redirect('/auth/login')     
+        } catch (err) {
+            console.log(err)
+        }
+
+        res.redirect('/auth/login')
     }
 
 

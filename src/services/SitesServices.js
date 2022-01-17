@@ -12,6 +12,9 @@ class SitesServices {
 
                 const avatar_url = '/images/users/' + avatar.filename
 
+                console.log(avatar)
+                console.log(avatar_url)
+
                 const result = await models.users.update({
                     full_name: profile.full_name,
                     email: profile.email,
@@ -20,7 +23,7 @@ class SitesServices {
                     avatar_url: avatar_url
                 }, {
                     raw: true,
-                    where: { username: username, role: 'Admin' }
+                    where: { username: username, role: 'Customer' }
                 })
 
                 resolve(result)
