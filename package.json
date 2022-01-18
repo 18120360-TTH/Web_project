@@ -25,7 +25,8 @@
     "passport-local": "^1.0.0",
     "sequelize": "^6.9.0",
     "sequelize-auto": "^0.8.5",
-    "uuidv4": "^6.2.12"
+    "uuidv4": "^6.2.12",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
