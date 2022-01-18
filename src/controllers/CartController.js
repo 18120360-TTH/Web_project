@@ -47,7 +47,6 @@ class CartController {
             cartUser = req.session.unauthId
         }
         const msg = await cartServices.addBookToCart(cartUser, req.body)
-        console.log(msg)
         const backURL = req.header('Referer') || '/';
         res.redirect(backURL);
     }

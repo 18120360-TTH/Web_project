@@ -45,10 +45,6 @@ class CartServices {
     updateCart = (userID, updateInfo) => {
         return new Promise(async (resolve, reject) => {
             try {
-                console.log("------------------------------------")
-                console.log(updateInfo)
-                console.log("------------------------------------")
-
                 for (let i in updateInfo) {
                     if (updateInfo[i] == 0) {
                         await models.carts.destroy({

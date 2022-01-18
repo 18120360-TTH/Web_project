@@ -143,7 +143,6 @@ class ProductServices {
                     where: { book_id: ID }
                 })
 
-                console.log(book)
                 resolve(book)
             }
             catch (err) {

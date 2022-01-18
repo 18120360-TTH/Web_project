@@ -336,8 +336,6 @@ class ProductsController {
         const bookAuthors = await productServices.getAuthorsByBook(req.query.ID)
         const relatedBooks = await productServices.getBooksByCategory(bookByID['categories_of_book.category'], 1)
 
-        console.log(relatedBooks)
-
         // Add authors into book
         let authors = bookAuthors[0].author_name
         for (let i in bookAuthors) {

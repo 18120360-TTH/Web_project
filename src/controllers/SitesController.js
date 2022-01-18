@@ -49,7 +49,6 @@ class SitesController {
         const upload = multer({ storage: storage }).single('avatar')
 
         upload(req, res, async function (err) {
-            console.log(req.file)
             await sitesServices.updateProfile(req.user.username, req.body, req.file)
         })
 
