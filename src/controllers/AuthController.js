@@ -102,6 +102,8 @@ class AuthController {
             res.render('auth/signup', { err: "Username is already taken!" })
         } else if (result == -2) {
             res.render('auth/signup', { err: "Password does not match!" })
+        } else if (result == -3) {
+            res.render('auth/signup', { err: "Email already in used!" })
         } else {
 
             //send confirm mail
