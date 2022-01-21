@@ -211,67 +211,6 @@ class ProductsController {
         })
     }
 
-    // async adSearch(req, res) {
-    //     let page
-    //     const limit = 6
-    //     if (req.query.page == undefined) { page = 1 }
-    //     else { page = req.query.page }
-
-    //     // console.log("--------------------------------")
-    //     // console.log(req.query)
-
-    //     const { searchedBooks, count } = await productServices.getAdSearchedBooks(req.query, page, limit)
-
-    //     // Calculate number of resulted pages
-    //     const totalPage = Math.ceil(count / limit)
-
-    //     for (let i in searchedBooks) {
-    //         const bookImgs = await productServices.getImagesByBook(searchedBooks[i].book_id)
-    //         for (let j in bookImgs) {
-    //             if (bookImgs[j].img_order == 1) {
-    //                 searchedBooks[i].img_url = bookImgs[j].img_url
-    //             }
-    //         }
-    //     }
-
-    //     // On the first page, disable "Previous" and "First" button
-    //     // On the last page, disable "Next" and "Last" button
-    //     let isPreValid = true
-    //     let isNextValid = true
-    //     if (page == 1) { isPreValid = false }
-    //     if (page == totalPage) { isNextValid = false }
-
-    //     const authorsList = await productServices.getAllAuthors()
-    //     const publishersList = await productServices.getAllPublishers()
-
-    //     // let path = 
-    //     // for (let i in req.query) {
-    //     //     if (i != 'page') {
-    //     //         path += i + "=" + req.query[i] + "&"
-    //     //     }
-    //     // }
-    //     // path += "page="
-
-    //     res.render('products/products-list', {
-    //         books: searchedBooks,
-    //         // Use for filter
-    //         authorsList,
-    //         publishersList,
-    //         // Use for pagination
-    //         path: "/products-list/advanced-searched?page=",
-    //         page,
-    //         prePage: parseInt(page) - 1,
-    //         nextPage: parseInt(page) + 1,
-    //         lastPage: totalPage,
-    //         isPreValid,
-    //         isNextValid,
-    //         // Use to indicate result order
-    //         firstIndex: (page - 1) * limit + 1,
-    //         lastIndex: (page - 1) * limit + searchedBooks.length,
-    //         count: count
-    //     })
-    // }
-
     // [GET] /products-list/products-sorted
     async sort(req, res) {
         const page = (req.query.page == undefined) ? 1 : req.query.page
@@ -332,6 +271,10 @@ class ProductsController {
     // [GET] /products-list/{product-detail}
     async detail(req, res) {
         const bookByID = await productServices.getBookByID(req.query.ID)
+        if (bookByID == null) {
+            res.render('errors/404')
+            return
+        }
         const bookImgs = await productServices.getImagesByBook(req.query.ID)
         const bookAuthors = await productServices.getAuthorsByBook(req.query.ID)
         const relatedBooks = await productServices.getBooksByCategory(bookByID['categories_of_book.category'], 1)

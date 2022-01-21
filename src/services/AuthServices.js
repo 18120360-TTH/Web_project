@@ -28,14 +28,17 @@ class AuthServices {
                     resolve(-1)
                 } else if (accountInfo.password != accountInfo.password_rep) {
                     resolve(-2)
+                } else if (await models.users.findOne({ where: { email: accountInfo.email } })) {
+                    resolve(-3)
                 }
 
+                console.log(accountInfo)
                 const result = await models.users.create({
                     username: accountInfo.username,
                     password_hashed: bcrypt.hashSync(accountInfo.password, 10),
                     full_name: (accountInfo.firstname + " " + accountInfo.lastname),
                     email: accountInfo.email,
-                    avatar_url: '/images/users/avatar-0.png',
+                    avatar_url: '/images/users/avatar-0.jpg',
                     address: (accountInfo.address),
                     role: "Customer",
                     active: 1,
